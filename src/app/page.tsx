@@ -21,7 +21,7 @@ export default function Home() {
         setEmployee(storedEmployee);
       }
     } catch (error) {
-      console.error("Could not access local storage", error);
+      console.error("Não foi possível acessar o armazenamento local", error);
     }
     setLoading(false);
   }, []);
@@ -31,7 +31,7 @@ export default function Home() {
       localStorage.setItem("selectedEmployee", selectedEmployee);
       setEmployee(selectedEmployee);
     } catch (error) {
-      console.error("Could not write to local storage", error);
+      console.error("Não foi possível gravar no armazenamento local", error);
     }
   };
 
@@ -40,7 +40,7 @@ export default function Home() {
       localStorage.removeItem("selectedEmployee");
       setEmployee(null);
     } catch (error) {
-      console.error("Could not remove from local storage", error);
+      console.error("Não foi possível remover do armazenamento local", error);
     }
   };
 

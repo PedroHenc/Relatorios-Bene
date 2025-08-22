@@ -43,14 +43,14 @@ export function EmployeeSelector({
           <CardTitle className="text-2xl font-headline">
             Auto Value Link
           </CardTitle>
-          <CardDescription>Select your profile to begin</CardDescription>
+          <CardDescription>Selecione seu perfil para começar</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6 pt-2">
           <Select value={selected} onValueChange={setSelected}>
             <SelectTrigger className="h-12 text-base">
               <div className="flex items-center">
                 <User className="mr-3 h-5 w-5 text-muted-foreground" />
-                <SelectValue placeholder="Select an employee..." />
+                <SelectValue placeholder="Selecione um funcionário..." />
               </div>
             </SelectTrigger>
             <SelectContent>
@@ -66,7 +66,7 @@ export function EmployeeSelector({
             disabled={!selected}
             className="w-full h-12 text-base"
           >
-            Continue
+            Continuar
           </Button>
         </CardContent>
       </Card>

@@ -55,7 +55,7 @@ export function AppHeader({
             <DropdownMenuSeparator />
             <DropdownMenuItem onClick={onLogout}>
               <LogOut className="mr-2 h-4 w-4" />
-              <span>Change Profile</span>
+              <span>Mudar Perfil</span>
             </DropdownMenuItem>
           </DropdownMenuContent>
         </DropdownMenu>

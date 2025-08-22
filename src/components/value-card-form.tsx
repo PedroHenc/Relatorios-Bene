@@ -25,13 +25,13 @@ import { Car, User, DollarSign, Printer } from "lucide-react";
 const formSchema = z.object({
   clientName: z
     .string()
-    .min(2, { message: "Client name must be at least 2 characters." }),
+    .min(2, { message: "O nome do cliente deve ter pelo menos 2 caracteres." }),
   carModel: z
     .string()
-    .min(2, { message: "Car model must be at least 2 characters." }),
+    .min(2, { message: "O modelo do carro deve ter pelo menos 2 caracteres." }),
   value: z.coerce
-    .number({ invalid_type_error: "Please enter a valid number." })
-    .positive({ message: "Value must be a positive number." }),
+    .number({ invalid_type_error: "Por favor, insira um número válido." })
+    .positive({ message: "O valor deve ser um número positivo." }),
 });
 
 export type FormData = z.infer<typeof formSchema>;
@@ -53,9 +53,9 @@ export function ValueCardForm({
   return (
     <Card className="w-full max-w-lg shadow-lg">
       <CardHeader>
-        <CardTitle className="font-headline text-2xl">Create Valuation</CardTitle>
+        <CardTitle className="font-headline text-2xl">Criar Avaliação</CardTitle>
         <CardDescription>
-          Enter the client and vehicle details below.
+          Insira os detalhes do cliente e do veículo abaixo.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -66,11 +66,11 @@ export function ValueCardForm({
               name="clientName"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Client Name</FormLabel>
+                  <FormLabel>Nome do Cliente</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input placeholder="e.g. John Doe" {...field} className="pl-10"/>
+                      <Input placeholder="ex: João da Silva" {...field} className="pl-10"/>
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -82,11 +82,11 @@ export function ValueCardForm({
               name="carModel"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Car Model</FormLabel>
+                  <FormLabel>Modelo do Carro</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <Car className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input placeholder="e.g. Toyota Camry" {...field} className="pl-10"/>
+                      <Input placeholder="ex: Toyota Camry" {...field} className="pl-10"/>
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -98,11 +98,11 @@ export function ValueCardForm({
               name="value"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Agreed Value</FormLabel>
+                  <FormLabel>Valor Acordado</FormLabel>
                   <FormControl>
                      <div className="relative">
                       <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input type="number" placeholder="e.g. 25000" {...field} className="pl-10" step="0.01"/>
+                      <Input type="number" placeholder="ex: 25000" {...field} className="pl-10" step="0.01"/>
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -111,7 +111,7 @@ export function ValueCardForm({
             />
             <Button type="submit" className="w-full h-11 text-base">
               <Printer className="mr-2 h-5 w-5" />
-              Save and Print
+              Salvar e Imprimir
             </Button>
           </form>
         </Form>

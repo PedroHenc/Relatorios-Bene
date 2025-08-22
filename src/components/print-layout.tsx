@@ -18,26 +18,26 @@ export function PrintLayout({
         <div className="text-right">
           <p className="font-semibold text-lg">{employee}</p>
           <p className="text-sm text-gray-600">
-            Date: {new Date().toLocaleDateString()}
+            Data: {new Date().toLocaleDateString('pt-BR')}
           </p>
         </div>
       </header>
       <main className="mt-10">
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-          Valuation Details
+          Detalhes da Avaliação
         </h2>
-        <div className="grid grid-cols-[150px_1fr] gap-x-8 gap-y-5 text-lg">
-          <div className="font-semibold">Client Name:</div>
+        <div className="grid grid-cols-[180px_1fr] gap-x-8 gap-y-5 text-lg">
+          <div className="font-semibold">Nome do Cliente:</div>
           <div className="border-b pb-2">{data.clientName}</div>
 
-          <div className="font-semibold">Car Model:</div>
+          <div className="font-semibold">Modelo do Carro:</div>
           <div className="border-b pb-2">{data.carModel}</div>
 
-          <div className="font-semibold">Agreed Value:</div>
+          <div className="font-semibold">Valor Acordado:</div>
           <div className="border-b pb-2 font-mono font-bold text-xl">
-            {new Intl.NumberFormat("en-US", {
+            {new Intl.NumberFormat("pt-BR", {
               style: "currency",
-              currency: "USD",
+              currency: "BRL",
             }).format(data.value)}
           </div>
         </div>
@@ -45,19 +45,19 @@ export function PrintLayout({
         <div className="mt-16 space-y-12">
             <div className="w-1/2">
                 <div className="w-full border-t border-gray-400 pt-2 text-center text-sm">
-                    Client Signature
+                    Assinatura do Cliente
                 </div>
             </div>
              <div className="w-1/2 ml-auto">
                 <div className="w-full border-t border-gray-400 pt-2 text-center text-sm">
-                    Employee Signature
+                    Assinatura do Funcionário
                 </div>
             </div>
         </div>
 
       </main>
       <footer className="mt-24 pt-6 border-t text-center text-gray-500 text-sm">
-        <p>Thank you for your business.</p>
+        <p>Obrigado pelo seu negócio.</p>
         <p>Auto Value Link &copy; {new Date().getFullYear()}</p>
       </footer>
     </div>
