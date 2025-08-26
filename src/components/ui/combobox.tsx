@@ -44,7 +44,7 @@ export function Combobox({
   const [open, setOpen] = React.useState(false);
 
   const selectedOption = React.useMemo(() => 
-    options.find((option) => option.value === value)
+    options.find((option) => option.value.toLowerCase() === value?.toLowerCase())
   , [options, value]);
 
   return (
@@ -71,7 +71,10 @@ export function Combobox({
                   key={option.value}
                   value={option.value}
                   onSelect={(currentValue) => {
-                    onChange?.(currentValue === value ? "" : currentValue);
+                    const selected = options.find(o => o.value.toLowerCase() === currentValue.toLowerCase());
+                    if (selected) {
+                      onChange?.(selected.value === value ? "" : selected.value);
+                    }
                     setOpen(false);
                   }}
                 >
