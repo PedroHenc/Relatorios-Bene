@@ -21,6 +21,20 @@ import {
   CardTitle,
 } from "@/components/ui/card";
 import { Car, User, DollarSign, Printer } from "lucide-react";
+import { Combobox } from "./ui/combobox";
+
+const carModels = [
+  { label: "Toyota Corolla", value: "Toyota Corolla" },
+  { label: "Honda Civic", value: "Honda Civic" },
+  { label: "Ford Focus", value: "Ford Focus" },
+  { label: "Chevrolet Onix", value: "Chevrolet Onix" },
+  { label: "Hyundai HB20", value: "Hyundai HB20" },
+  { label: "Volkswagen Gol", value: "Volkswagen Gol" },
+  { label: "Fiat Argo", value: "Fiat Argo" },
+  { label: "Renault Sandero", value: "Renault Sandero" },
+  { label: "Jeep Renegade", value: "Jeep Renegade" },
+  { label: "Nissan Kicks", value: "Nissan Kicks" },
+];
 
 const formSchema = z.object({
   clientName: z
@@ -81,14 +95,16 @@ export function ValueCardForm({
               control={form.control}
               name="carModel"
               render={({ field }) => (
-                <FormItem>
+                <FormItem className="flex flex-col">
                   <FormLabel>Modelo do Carro</FormLabel>
-                  <FormControl>
-                    <div className="relative">
-                      <Car className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input placeholder="ex: Toyota Camry" {...field} className="pl-10"/>
-                    </div>
-                  </FormControl>
+                  <Combobox
+                    options={carModels}
+                    value={field.value}
+                    onChange={field.onChange}
+                    placeholder="Selecione um modelo..."
+                    searchPlaceholder="Procure um modelo..."
+                    notfoundtext="Nenhum modelo encontrado."
+                  />
                   <FormMessage />
                 </FormItem>
               )}
