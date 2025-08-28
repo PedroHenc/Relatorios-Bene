@@ -13,7 +13,7 @@ export function PrintLayout({
       <header className="flex justify-between items-center pb-6 border-b-2 border-gray-900">
         <div className="flex items-center gap-3">
           <Logo className="h-8 w-8 text-gray-900" />
-          <h1 className="text-3xl font-bold">Auto Value Link</h1>
+          <h1 className="text-3xl font-bold">Relatorio Benny's</h1>
         </div>
         <div className="text-right">
           <p className="font-semibold text-lg">{employee}</p>
@@ -58,7 +58,7 @@ export function PrintLayout({
       </main>
       <footer className="mt-24 pt-6 border-t text-center text-gray-500 text-sm">
         <p>Obrigado pelo seu negócio.</p>
-        <p>Auto Value Link &copy; {new Date().getFullYear()}</p>
+        <p>Benny's &copy; {new Date().getFullYear()}</p>
       </footer>
     </div>
   );

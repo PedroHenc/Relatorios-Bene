@@ -41,7 +41,7 @@ export function EmployeeSelector({
             <Logo className="h-8 w-8" />
           </div>
           <CardTitle className="text-2xl font-headline">
-            Auto Value Link
+            Relatorio Benny's
           </CardTitle>
           <CardDescription>Selecione seu perfil para começar</CardDescription>
         </CardHeader>

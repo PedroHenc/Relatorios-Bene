@@ -31,7 +31,7 @@ export function AppHeader({
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
       <div className="flex items-center gap-2">
         <Logo className="h-6 w-6 text-primary" />
-        <h1 className="text-lg font-semibold font-headline">Auto Value Link</h1>
+        <h1 className="text-lg font-semibold font-headline">Relatorio Benny's</h1>
       </div>
       <div className="ml-auto flex items-center gap-2">
         <ThemeToggle />
@@ -50,7 +50,7 @@ export function AppHeader({
               <div className="flex flex-col space-y-1">
                 <p className="text-sm font-medium leading-none">{employee}</p>
                 <p className="text-xs leading-none text-muted-foreground">
-                  {employee.toLowerCase().replace(" ", ".")}@autovalue.link
+                  {employee.toLowerCase().replace(" ", ".")}@bennys.com
                 </p>
               </div>
             </DropdownMenuLabel>

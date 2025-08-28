@@ -3,8 +3,8 @@ import './globals.css';
 import { ThemeProvider } from '@/components/theme-provider';
 
 export const metadata: Metadata = {
-  title: 'App Firebase Studio',
-  description: 'Gerado pelo Firebase Studio',
+  title: 'Relatorio Benny\'s',
+  description: 'Gerado para Benny\'s',
 };
 
 export default function RootLayout({
