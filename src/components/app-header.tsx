@@ -13,6 +13,7 @@ import {
 } from "@/components/ui/dropdown-menu";
 import { LogOut } from "lucide-react";
 import { Logo } from "./logo";
+import { ThemeToggle } from "./theme-toggle";
 
 export function AppHeader({
   employee,
@@ -32,7 +33,8 @@ export function AppHeader({
         <Logo className="h-6 w-6 text-primary" />
         <h1 className="text-lg font-semibold font-headline">Auto Value Link</h1>
       </div>
-      <div className="ml-auto flex items-center gap-4">
+      <div className="ml-auto flex items-center gap-2">
+        <ThemeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>
             <Button variant="ghost" className="relative h-9 w-9 rounded-full">
