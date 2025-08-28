@@ -16,6 +16,12 @@ const nextConfig: NextConfig = {
         port: '',
         pathname: '/**',
       },
+      {
+        protocol: 'https',
+        hostname: 'forum-cfx-re.akamaized.net',
+        port: '',
+        pathname: '/**',
+      },
     ],
   },
 };

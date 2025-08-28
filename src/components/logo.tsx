@@ -1,22 +1,17 @@
+import Image from "next/image";
 import { cn } from "@/lib/utils";
-import type { SVGProps } from "react";
 
-export function Logo(props: SVGProps<SVGSVGElement>) {
+export function Logo({ className }: { className?: string }) {
   return (
-    <svg
-      xmlns="http://www.w3.org/2000/svg"
-      viewBox="0 0 24 24"
-      fill="none"
-      stroke="currentColor"
-      strokeWidth="2"
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      className={cn("h-6 w-6", props.className)}
-      {...props}
-    >
-      <path d="M12 2L2 7l10 5 10-5-10-5z"></path>
-      <path d="M2 17l10 5 10-5"></path>
-      <path d="M2 12l10 5 10-5"></path>
-    </svg>
+    <div className={cn("relative", className)}>
+      <Image
+        src="https://forum-cfx-re.akamaized.net/original/4X/f/4/c/f4c3c447d46220f48d5b2eae5cb15ae7a387dd48.png"
+        alt="Benny's Logo"
+        width={100}
+        height={100}
+        className="object-contain"
+        data-ai-hint="logo benny's"
+      />
+    </div>
   );
 }

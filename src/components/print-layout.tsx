@@ -12,7 +12,7 @@ export function PrintLayout({
     <div className="hidden print:block font-sans text-gray-800 p-10">
       <header className="flex justify-between items-center pb-6 border-b-2 border-gray-900">
         <div className="flex items-center gap-3">
-          <Logo className="h-8 w-8 text-gray-900" />
+          <Logo className="h-12 w-12" />
           <h1 className="text-3xl font-bold">Relatorio Benny's</h1>
         </div>
         <div className="text-right">

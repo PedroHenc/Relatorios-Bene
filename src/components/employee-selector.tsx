@@ -37,8 +37,8 @@ export function EmployeeSelector({
     <div className="flex items-center justify-center min-h-screen bg-background p-4">
       <Card className="w-full max-w-sm shadow-2xl animate-in fade-in-50 zoom-in-95">
         <CardHeader className="text-center">
-          <div className="mx-auto bg-primary/10 text-primary p-3 rounded-full mb-4 w-fit">
-            <Logo className="h-8 w-8" />
+          <div className="mx-auto mb-4 w-fit">
+            <Logo className="h-20 w-20" />
           </div>
           <CardTitle className="text-2xl font-headline">
             Relatorio Benny's
