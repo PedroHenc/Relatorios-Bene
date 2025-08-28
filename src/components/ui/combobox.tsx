@@ -71,9 +71,11 @@ export function Combobox({
                   key={option.value}
                   value={option.value}
                   onSelect={(currentValue) => {
-                    const selected = options.find(o => o.value.toLowerCase() === currentValue.toLowerCase());
-                    if (selected) {
-                      onChange?.(selected.value === value ? "" : selected.value);
+                    const newValue = options.find(
+                      (o) => o.value.toLowerCase() === currentValue
+                    )?.value;
+                    if (newValue) {
+                      onChange?.(newValue);
                     }
                     setOpen(false);
                   }}
@@ -81,7 +83,9 @@ export function Combobox({
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === option.value ? "opacity-100" : "opacity-0"
+                      value?.toLowerCase() === option.value.toLowerCase()
+                        ? "opacity-100"
+                        : "opacity-0"
                     )}
                   />
                   {option.label}
