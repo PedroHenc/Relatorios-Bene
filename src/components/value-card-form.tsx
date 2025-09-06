@@ -1,3 +1,4 @@
+
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -20,8 +21,10 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Car, User, DollarSign, Printer } from "lucide-react";
+import { User, DollarSign, Send } from "lucide-react";
 import { Combobox } from "./ui/combobox";
+import { Switch } from "./ui/switch";
+import { Label } from "./ui/label";
 
 const carModels = [
   { label: "Toyota Corolla", value: "Toyota Corolla" },
@@ -46,6 +49,7 @@ const formSchema = z.object({
   value: z.coerce
     .number({ invalid_type_error: "Por favor, insira um número válido." })
     .positive({ message: "O valor deve ser um número positivo." }),
+  reportType: z.enum(["normal", "leilao"]),
 });
 
 export type FormData = z.infer<typeof formSchema>;
@@ -61,6 +65,7 @@ export function ValueCardForm({
       clientName: "",
       carModel: "",
       value: undefined,
+      reportType: "normal",
     },
   });
 
@@ -75,6 +80,34 @@ export function ValueCardForm({
       <CardContent>
         <Form {...form}>
           <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+            <FormField
+              control={form.control}
+              name="reportType"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                  <div className="space-y-0.5">
+                    <FormLabel>Tipo de Relatório</FormLabel>
+                    <p className="text-sm text-muted-foreground">
+                      Relatório{" "}
+                      <span className="font-semibold text-foreground">
+                        {field.value === "normal" ? "Normal" : "Leilão"}
+                      </span>
+                    </p>
+                  </div>
+                  <FormControl>
+                    <div className="flex items-center space-x-2">
+                       <Label htmlFor="report-type-switch" className="text-muted-foreground">Normal</Label>
+                       <Switch
+                        id="report-type-switch"
+                        checked={field.value === "leilao"}
+                        onCheckedChange={(checked) => field.onChange(checked ? "leilao" : "normal")}
+                      />
+                       <Label htmlFor="report-type-switch" className="text-muted-foreground">Leilão</Label>
+                    </div>
+                  </FormControl>
+                </FormItem>
+              )}
+            />
             <FormField
               control={form.control}
               name="clientName"
@@ -100,7 +133,7 @@ export function ValueCardForm({
                   <Combobox
                     options={carModels}
                     value={field.value}
-                    onChange={field.onChange}
+                    onChange={(value) => field.onChange(value)}
                     placeholder="Selecione um modelo..."
                     searchPlaceholder="Procure um modelo..."
                     notfoundtext="Nenhum modelo encontrado."
@@ -126,8 +159,8 @@ export function ValueCardForm({
               )}
             />
             <Button type="submit" className="w-full h-11 text-base">
-              <Printer className="mr-2 h-5 w-5" />
-              Salvar e Imprimir
+              <Send className="mr-2 h-5 w-5" />
+              Enviar
             </Button>
           </form>
         </Form>
@@ -135,3 +168,5 @@ export function ValueCardForm({
     </Card>
   );
 }
+
+    
