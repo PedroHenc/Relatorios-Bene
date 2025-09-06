@@ -43,9 +43,13 @@ export function Combobox({
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
 
-  const selectedOption = React.useMemo(() => 
-    options.find((option) => option.value.toLowerCase() === value?.toLowerCase())
-  , [options, value]);
+  const selectedOption = React.useMemo(
+    () =>
+      options.find((option) =>
+        option.value.toLowerCase() === value?.toLowerCase()
+      ),
+    [options, value],
+  );
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -81,7 +85,7 @@ export function Combobox({
                       "mr-2 h-4 w-4",
                       value?.toLowerCase() === option.value.toLowerCase()
                         ? "opacity-100"
-                        : "opacity-0"
+                        : "opacity-0",
                     )}
                   />
                   {option.label}

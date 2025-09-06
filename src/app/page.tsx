@@ -1,18 +1,27 @@
 "use client";
 
-import { useState, useEffect } from "react";
-import { EmployeeSelector } from "@/components/employee-selector";
 import { AppHeader } from "@/components/app-header";
-import { ValueCardForm, type FormData } from "@/components/value-card-form";
+import { EmployeeSelector } from "@/components/employee-selector";
 import { PrintLayout } from "@/components/print-layout";
 import { Skeleton } from "@/components/ui/skeleton";
+import { type FormData, ValueCardForm } from "@/components/value-card-form";
+import { getBenneiros } from "@/services/sgbr-api";
+import { useQuery } from "@tanstack/react-query";
+import { useEffect, useState } from "react";
 
 export default function Home() {
   const [employee, setEmployee] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
   const [formDataForPrint, setFormDataForPrint] = useState<FormData | null>(
-    null
+    null,
   );
+
+  const benneiroData = useQuery({
+    queryKey: ["benneiros"],
+    queryFn: getBenneiros,
+  }) || [];
+
+  console.log(benneiroData.data?.data);
 
   useEffect(() => {
     try {
@@ -78,7 +87,9 @@ export default function Home() {
           <ValueCardForm onSubmit={handleFormSubmit} />
         </main>
       </div>
-      {formDataForPrint && <PrintLayout data={formDataForPrint} employee={employee} />}
+      {formDataForPrint && (
+        <PrintLayout data={formDataForPrint} employee={employee} />
+      )}
     </>
   );
 }

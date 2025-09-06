@@ -18,7 +18,7 @@ export function PrintLayout({
         <div className="text-right">
           <p className="font-semibold text-lg">{employee}</p>
           <p className="text-sm text-gray-600">
-            Data: {new Date().toLocaleDateString('pt-BR')}
+            Data: {new Date().toLocaleDateString("pt-BR")}
           </p>
         </div>
       </header>
@@ -43,18 +43,17 @@ export function PrintLayout({
         </div>
 
         <div className="mt-16 space-y-12">
-            <div className="w-1/2">
-                <div className="w-full border-t border-gray-400 pt-2 text-center text-sm">
-                    Assinatura do Cliente
-                </div>
+          <div className="w-1/2">
+            <div className="w-full border-t border-gray-400 pt-2 text-center text-sm">
+              Assinatura do Cliente
             </div>
-             <div className="w-1/2 ml-auto">
-                <div className="w-full border-t border-gray-400 pt-2 text-center text-sm">
-                    Assinatura do Funcionário
-                </div>
+          </div>
+          <div className="w-1/2 ml-auto">
+            <div className="w-full border-t border-gray-400 pt-2 text-center text-sm">
+              Assinatura do Funcionário
             </div>
+          </div>
         </div>
-
       </main>
       <footer className="mt-24 pt-6 border-t text-center text-gray-500 text-sm">
         <p>Obrigado pelo seu negócio.</p>

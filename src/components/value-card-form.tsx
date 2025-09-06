@@ -1,4 +1,3 @@
-
 "use client";
 
 import { useForm } from "react-hook-form";
@@ -21,7 +20,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { User, DollarSign, Send } from "lucide-react";
+import { DollarSign, Send, User } from "lucide-react";
 import { Combobox } from "./ui/combobox";
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
@@ -72,7 +71,9 @@ export function ValueCardForm({
   return (
     <Card className="w-full max-w-lg shadow-lg">
       <CardHeader>
-        <CardTitle className="font-headline text-2xl">Criar Avaliação</CardTitle>
+        <CardTitle className="font-headline text-2xl">
+          Criar Avaliação
+        </CardTitle>
         <CardDescription>
           Insira os detalhes do cliente e do veículo abaixo.
         </CardDescription>
@@ -96,13 +97,24 @@ export function ValueCardForm({
                   </div>
                   <FormControl>
                     <div className="flex items-center space-x-2">
-                       <Label htmlFor="report-type-switch" className="text-muted-foreground">Normal</Label>
-                       <Switch
+                      <Label
+                        htmlFor="report-type-switch"
+                        className="text-muted-foreground"
+                      >
+                        Normal
+                      </Label>
+                      <Switch
                         id="report-type-switch"
                         checked={field.value === "leilao"}
-                        onCheckedChange={(checked) => field.onChange(checked ? "leilao" : "normal")}
+                        onCheckedChange={(checked) =>
+                          field.onChange(checked ? "leilao" : "normal")}
                       />
-                       <Label htmlFor="report-type-switch" className="text-muted-foreground">Leilão</Label>
+                      <Label
+                        htmlFor="report-type-switch"
+                        className="text-muted-foreground"
+                      >
+                        Leilão
+                      </Label>
                     </div>
                   </FormControl>
                 </FormItem>
@@ -117,7 +129,11 @@ export function ValueCardForm({
                   <FormControl>
                     <div className="relative">
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input placeholder="ex: João da Silva" {...field} className="pl-10"/>
+                      <Input
+                        placeholder="ex: João da Silva"
+                        {...field}
+                        className="pl-10"
+                      />
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -149,9 +165,15 @@ export function ValueCardForm({
                 <FormItem>
                   <FormLabel>Valor Acordado</FormLabel>
                   <FormControl>
-                     <div className="relative">
+                    <div className="relative">
                       <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                      <Input type="number" placeholder="ex: 25000" {...field} className="pl-10" step="0.01"/>
+                      <Input
+                        type="number"
+                        placeholder="ex: 25000"
+                        {...field}
+                        className="pl-10"
+                        step="0.01"
+                      />
                     </div>
                   </FormControl>
                   <FormMessage />
@@ -168,5 +190,3 @@ export function ValueCardForm({
     </Card>
   );
 }
-
-    

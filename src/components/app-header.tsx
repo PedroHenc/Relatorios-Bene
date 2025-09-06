@@ -1,7 +1,4 @@
-import {
-  Avatar,
-  AvatarFallback,
-} from "@/components/ui/avatar";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -26,12 +23,14 @@ export function AppHeader({
     .split(" ")
     .map((n) => n[0])
     .join("");
-    
+
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
       <div className="flex items-center gap-2">
         <Logo className="h-10 w-10" />
-        <h1 className="text-lg font-semibold font-headline">Relatorio Benny's</h1>
+        <h1 className="text-lg font-semibold font-headline">
+          Relatorio Benny's
+        </h1>
       </div>
       <div className="ml-auto flex items-center gap-2">
         <ThemeToggle />
