@@ -9,6 +9,7 @@ export interface relatorios {
   created_at?: string;
   created_by?: string;
   veiculo?: string;
+  leilao?: Boolean;
 }
 
 export interface Benneiro {
