@@ -79,9 +79,9 @@ export default function Home() {
       cliente: data.clientName,
       cpf: data.cpf ? Number(data.cpf.replace(/\D/g, "")) : undefined,
       lucro: data.value,
-      categoria: data.reportType,
-      created_by: employee, // Adicionado para rastreamento
-      veiculo: data.carModel, // Adicionado campo veiculo
+      categoria: `Relatorio ${selectedEmployeeData.cargo}`,
+      created_by: employee,
+      veiculo: data.carModel,
     };
 
     postRelatorio.mutate(relatorioData, {

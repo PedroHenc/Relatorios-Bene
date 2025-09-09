@@ -1,12 +1,12 @@
 import axios from "axios";
-import { relatorios } from "./types";
+import { Benneiro, relatorios } from "./types";
 
 const apiUrl = axios.create({
   baseURL: "https://sgbr-api.up.railway.app/",
 });
 
 export function getBenneiros() {
-  return apiUrl.get("/benneiros");
+  return apiUrl.get<Benneiro[]>("/benneiros");
 }
 
 export function postRelatorios(Relatorios: relatorios) {
