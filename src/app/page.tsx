@@ -2,7 +2,6 @@
 
 import { AppHeader } from "@/components/app-header";
 import { EmployeeSelector } from "@/components/employee-selector";
-import { PrintLayout } from "@/components/print-layout";
 import { Skeleton } from "@/components/ui/skeleton";
 import { type FormData, ValueCardForm } from "@/components/value-card-form";
 import useMutationRelatorios from "@/hooks/useMutationRelatorios";
@@ -13,9 +12,6 @@ import { useEffect, useState } from "react";
 export default function Home() {
   const [employee, setEmployee] = useState<string | null>(null);
   const [appLoading, setAppLoading] = useState(true);
-  const [formDataForPrint, setFormDataForPrint] = useState<FormData | null>(
-    null,
-  );
 
   const { postRelatorio } = useMutationRelatorios();
 
@@ -86,11 +82,9 @@ export default function Home() {
 
     postRelatorio.mutate(relatorioData, {
       onSuccess: () => {
-        setFormDataForPrint(data);
-        setTimeout(() => {
-          window.print();
-          setFormDataForPrint(null);
-        }, 100);
+        console.log("Relatório enviado com sucesso!");
+        // A funcionalidade de impressão foi removida.
+        // TODO: Adicionar um toast de sucesso para o usuário.
       },
       onError: (error) => {
         console.error("Erro ao enviar relatório:", error);
@@ -125,19 +119,14 @@ export default function Home() {
   }
 
   return (
-    <>
-      <div className="print:hidden flex flex-col min-h-screen bg-background">
-        <AppHeader employee={employee} onLogout={handleLogout} />
-        <main className="flex-1 flex items-center justify-center p-4 sm:p-6 md:p-8">
-          <ValueCardForm
-            onSubmit={handleFormSubmit}
-            isSubmitting={postRelatorio.isPending}
-          />
-        </main>
-      </div>
-      {formDataForPrint && (
-        <PrintLayout data={formDataForPrint} employee={employee} />
-      )}
-    </>
+    <div className="print:hidden flex flex-col min-h-screen bg-background">
+      <AppHeader employee={employee} onLogout={handleLogout} />
+      <main className="flex-1 flex items-center justify-center p-4 sm:p-6 md:p-8">
+        <ValueCardForm
+          onSubmit={handleFormSubmit}
+          isSubmitting={postRelatorio.isPending}
+        />
+      </main>
+    </div>
   );
 }
