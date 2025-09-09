@@ -1,6 +1,6 @@
 export interface relatorios {
   id?: number;
-  categoria?: string;
+  categoria?: { nome: string };
   cliente?: string;
   cpf?: number;
   lucro?: number;

@@ -79,7 +79,7 @@ export default function Home() {
       cliente: data.clientName,
       cpf: data.cpf ? Number(data.cpf.replace(/\D/g, "")) : undefined,
       lucro: data.value,
-      categoria: `Relatorio ${selectedEmployeeData.cargo}`,
+      categoria: { nome: `Relatorio ${selectedEmployeeData.cargo}` },
       created_by: employee,
       veiculo: data.carModel,
     };
