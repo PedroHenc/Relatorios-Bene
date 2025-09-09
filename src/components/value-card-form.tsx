@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { veiculosKK } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DollarSign, Send, User } from "lucide-react";
+import { DollarSign, FileText, Send, User } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Combobox } from "./ui/combobox";
@@ -35,6 +35,7 @@ const formSchema = z.object({
   clientName: z
     .string()
     .min(2, { message: "O nome do cliente deve ter pelo menos 2 caracteres." }),
+  cpf: z.string().optional(),
   carModel: z
     .string()
     .min(2, { message: "O modelo do carro deve ter pelo menos 2 caracteres." }),
@@ -55,6 +56,7 @@ export function ValueCardForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       clientName: "",
+      cpf: "",
       carModel: "",
       value: undefined,
       reportType: "normal",
@@ -65,10 +67,10 @@ export function ValueCardForm({
     <Card className="w-full max-w-lg shadow-lg">
       <CardHeader>
         <CardTitle className="font-headline text-2xl">
-          Criar Avaliação
+          Relatorio
         </CardTitle>
         <CardDescription>
-          Insira os detalhes do cliente e do veículo abaixo.
+          Insira os detalhes abaixo para gerar o relatório.
         </CardDescription>
       </CardHeader>
       <CardContent>
@@ -124,6 +126,26 @@ export function ValueCardForm({
                       <User className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
                         placeholder="ex: João da Silva"
+                        {...field}
+                        className="pl-10"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="cpf"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>CPF</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <FileText className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Input
+                        placeholder="000.000.000-00 (Opcional)"
                         {...field}
                         className="pl-10"
                       />

@@ -24,11 +24,18 @@ export function PrintLayout({
       </header>
       <main className="mt-10">
         <h2 className="text-2xl font-semibold text-gray-800 mb-6">
-          Detalhes da Avaliação
+          Detalhes do Relatório
         </h2>
         <div className="grid grid-cols-[180px_1fr] gap-x-8 gap-y-5 text-lg">
           <div className="font-semibold">Nome do Cliente:</div>
           <div className="border-b pb-2">{data.clientName}</div>
+
+          {data.cpf && (
+            <>
+              <div className="font-semibold">CPF:</div>
+              <div className="border-b pb-2">{data.cpf}</div>
+            </>
+          )}
 
           <div className="font-semibold">Modelo do Carro:</div>
           <div className="border-b pb-2">{data.carModel}</div>
@@ -40,6 +47,9 @@ export function PrintLayout({
               currency: "BRL",
             }).format(data.value)}
           </div>
+
+          <div className="font-semibold">Tipo de Relatório:</div>
+          <div className="border-b pb-2 capitalize">{data.reportType}</div>
         </div>
 
         <div className="mt-16 space-y-12">
