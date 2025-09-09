@@ -4,8 +4,8 @@ import { AppHeader } from "@/components/app-header";
 import { EmployeeSelector } from "@/components/employee-selector";
 import { Skeleton } from "@/components/ui/skeleton";
 import { type FormData, ValueCardForm } from "@/components/value-card-form";
-import useMutationRelatorios from "@/hooks/useMutationRelatorios";
 import { useToast } from "@/hooks/use-toast";
+import useMutationRelatorios from "@/hooks/useMutationRelatorios";
 import { getBenneiros } from "@/services/sgbr-api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -81,7 +81,7 @@ export default function Home() {
       cliente: data.clientName,
       cpf: data.cpf ? Number(data.cpf.replace(/\D/g, "")) : undefined,
       lucro: data.value,
-      categoria: { nome: `Relatorio ${selectedEmployeeData.cargo}` },
+      categoria:`Relatorio tunagem ${selectedEmployeeData.cargo}`,
       created_by: employee,
       veiculo: data.carModel,
     };
