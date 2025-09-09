@@ -24,19 +24,12 @@ import { DollarSign, Send, User } from "lucide-react";
 import { Combobox } from "./ui/combobox";
 import { Switch } from "./ui/switch";
 import { Label } from "./ui/label";
+import { veiculosKK } from "@/lib/utils";
 
-const carModels = [
-  { label: "Toyota Corolla", value: "Toyota Corolla" },
-  { label: "Honda Civic", value: "Honda Civic" },
-  { label: "Ford Focus", value: "Ford Focus" },
-  { label: "Chevrolet Onix", value: "Chevrolet Onix" },
-  { label: "Hyundai HB20", value: "Hyundai HB20" },
-  { label: "Volkswagen Gol", value: "Volkswagen Gol" },
-  { label: "Fiat Argo", value: "Fiat Argo" },
-  { label: "Renault Sandero", value: "Renault Sandero" },
-  { label: "Jeep Renegade", value: "Jeep Renegade" },
-  { label: "Nissan Kicks", value: "Nissan Kicks" },
-];
+const carModels = veiculosKK.map((model) => ({
+  label: model,
+  value: model,
+}));
 
 const formSchema = z.object({
   clientName: z

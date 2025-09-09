@@ -5,8 +5,7 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
 
-
-const veiculosKK = [
+export const veiculosKK = [
   "10F",
   "10F Widebody",
   "300R",
@@ -591,5 +590,5 @@ const veiculosKK = [
   "ZR-390",
   "ZR250",
   "ZR350",
-  "ZR350 Custom"
+  "ZR350 Custom",
 ];
