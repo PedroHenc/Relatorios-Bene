@@ -1,6 +1,6 @@
 export interface relatorios {
   id?: number;
-  categoria?: { nome: string };
+  categoria?: string;
   cliente?: string;
   cpf?: number;
   lucro?: number;
@@ -10,7 +10,6 @@ export interface relatorios {
   created_by?: string;
   veiculo?: string;
 }
-
 
 export interface Benneiro {
   id: number
