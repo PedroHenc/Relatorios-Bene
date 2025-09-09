@@ -60,7 +60,7 @@ export function ValueCardForm({
       clientName: "",
       cpf: "",
       carModel: "",
-      value: undefined,
+      value: "" as any,
       reportType: "normal",
     },
   });
