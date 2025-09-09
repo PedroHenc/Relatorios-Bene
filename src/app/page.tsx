@@ -7,6 +7,7 @@ import { type FormData, ValueCardForm } from "@/components/value-card-form";
 import { useToast } from "@/hooks/use-toast";
 import useMutationRelatorios from "@/hooks/useMutationRelatorios";
 import { getBenneiros } from "@/services/sgbr-api";
+import { Benneiro } from "@/services/types";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
@@ -21,16 +22,22 @@ export default function Home() {
     data: benneiroData,
     isLoading: benneirosLoading,
     isError: benneirosError,
-  } = useQuery({
+  } = useQuery<{ data: Benneiro[] }>({
     queryKey: ["benneiros"],
     queryFn: getBenneiros,
   });
 
-  const employees =
-    benneiroData?.data.map((b: { id: number; nome: string }) => ({
-      value: b.nome,
-      label: b.nome,
-    })) || [];
+  const groupedEmployees = benneiroData?.data.reduce(
+    (acc, b) => {
+      const { cargo, nome } = b;
+      if (!acc[cargo]) {
+        acc[cargo] = [];
+      }
+      acc[cargo].push({ value: nome, label: nome });
+      return acc;
+    },
+    {} as Record<string, { value: string; label: string }[]>,
+  );
 
   useEffect(() => {
     try {
@@ -64,7 +71,7 @@ export default function Home() {
 
   const handleFormSubmit = (data: FormData, resetForm: () => void) => {
     const selectedEmployeeData = benneiroData?.data.find(
-      (b: { nome: string; cargo: string }) => b.nome === employee,
+      (b) => b.nome === employee,
     );
 
     if (!selectedEmployeeData) {
@@ -81,9 +88,10 @@ export default function Home() {
       cliente: data.clientName,
       cpf: data.cpf ? Number(data.cpf.replace(/\D/g, "")) : undefined,
       lucro: data.value,
-      categoria:`Relatorio tunagem ${selectedEmployeeData.cargo}`,
+      categoria: `Relatorio ${selectedEmployeeData.cargo}`,
       created_by: employee,
       veiculo: data.carModel,
+      leilao: data.reportType === "leilao",
     };
 
     postRelatorio.mutate(relatorioData, {
@@ -124,7 +132,7 @@ export default function Home() {
     return (
       <EmployeeSelector
         onSelect={handleEmployeeSelect}
-        employees={employees}
+        employees={groupedEmployees || {}}
         isLoading={benneirosLoading}
         isError={benneirosError}
       />
@@ -132,7 +140,7 @@ export default function Home() {
   }
 
   return (
-    <div className="print:hidden flex flex-col min-h-screen bg-background">
+    <div className="flex flex-col min-h-screen bg-background">
       <AppHeader employee={employee} onLogout={handleLogout} />
       <main className="flex-1 flex items-center justify-center p-4 sm:p-6 md:p-8">
         <ValueCardForm

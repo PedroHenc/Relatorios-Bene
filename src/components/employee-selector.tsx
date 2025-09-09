@@ -11,7 +11,9 @@ import {
 import {
   Select,
   SelectContent,
+  SelectGroup,
   SelectItem,
+  SelectLabel,
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
@@ -24,6 +26,8 @@ type Employee = {
   label: string;
 };
 
+type GroupedEmployees = Record<string, Employee[]>;
+
 export function EmployeeSelector({
   onSelect,
   employees,
@@ -31,7 +35,7 @@ export function EmployeeSelector({
   isError,
 }: {
   onSelect: (employee: string) => void;
-  employees: Employee[];
+  employees: GroupedEmployees;
   isLoading: boolean;
   isError: boolean;
 }) {
@@ -87,14 +91,19 @@ export function EmployeeSelector({
                 </div>
               </SelectTrigger>
               <SelectContent>
-                {employees.map((emp) => (
-                  <SelectItem
-                    key={emp.value}
-                    value={emp.value}
-                    className="text-base py-2"
-                  >
-                    {emp.label}
-                  </SelectItem>
+                {Object.entries(employees).map(([group, emps]) => (
+                  <SelectGroup key={group}>
+                    <SelectLabel>{group}</SelectLabel>
+                    {emps.map((emp) => (
+                      <SelectItem
+                        key={emp.value}
+                        value={emp.value}
+                        className="text-base py-2"
+                      >
+                        {emp.label}
+                      </SelectItem>
+                    ))}
+                  </SelectGroup>
                 ))}
               </SelectContent>
             </Select>
