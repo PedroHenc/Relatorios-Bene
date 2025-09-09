@@ -27,8 +27,8 @@ import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
 
 const carModels = veiculosKK.map((model) => ({
-  label: model,
-  value: model,
+  label: model.nome,
+  value: model.nome,
 }));
 
 const formSchema = z.object({
@@ -38,7 +38,7 @@ const formSchema = z.object({
   cpf: z.string().optional(),
   carModel: z
     .string()
-    .min(2, { message: "O modelo do carro deve ter pelo menos 2 caracteres." }),
+    .min(1, { message: "Por favor, selecione um modelo de carro." }),
   value: z.coerce
     .number({ invalid_type_error: "Por favor, insira um número válido." })
     .positive({ message: "O valor deve ser um número positivo." }),
