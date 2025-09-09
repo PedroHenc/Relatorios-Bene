@@ -65,7 +65,7 @@ export default function Home() {
 
   const handleFormSubmit = (data: FormData) => {
     const selectedEmployeeData = benneiroData?.data.find(
-      (b: { nome: string }) => b.nome === employee,
+      (b: { nome: string; cargo: string }) => b.nome === employee,
     );
 
     if (!selectedEmployeeData) {

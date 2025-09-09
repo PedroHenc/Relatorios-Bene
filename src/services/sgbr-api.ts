@@ -6,7 +6,7 @@ const apiUrl = axios.create({
 });
 
 export function getBenneiros() {
-  return apiUrl.get<Benneiro[]>("/benneiros");
+  return apiUrl.get("/benneiros");
 }
 
 export function postRelatorios(Relatorios: relatorios) {
