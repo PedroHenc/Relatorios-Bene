@@ -3,7 +3,6 @@ export interface relatorios {
   categoria?: string;
   cliente?: string;
   cpf?: number;
-  escape?: string;
   lucro?: number;
   beneiro_id: number;
   edited_by?: string;

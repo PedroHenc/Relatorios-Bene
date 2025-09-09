@@ -1,5 +1,5 @@
-import type { FormData } from "./value-card-form";
 import { Logo } from "./logo";
+import type { FormData } from "./value-card-form";
 
 export function PrintLayout({
   data,

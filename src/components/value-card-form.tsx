@@ -145,7 +145,7 @@ export function ValueCardForm({
                     <div className="relative">
                       <FileText className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
-                        placeholder="000.000.000-00 (Opcional)"
+                        placeholder="00000"
                         {...field}
                         className="pl-10"
                       />
