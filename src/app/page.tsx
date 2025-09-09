@@ -11,17 +11,24 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
   const [employee, setEmployee] = useState<string | null>(null);
-  const [loading, setLoading] = useState(true);
+  const [appLoading, setAppLoading] = useState(true);
   const [formDataForPrint, setFormDataForPrint] = useState<FormData | null>(
     null,
   );
 
-  const benneiroData = useQuery({
+  const {
+    data: benneiroData,
+    isLoading: benneirosLoading,
+    isError: benneirosError,
+  } = useQuery({
     queryKey: ["benneiros"],
     queryFn: getBenneiros,
-  }) || [];
+  });
 
-  console.log(benneiroData.data?.data);
+  const employees = benneiroData?.data.map((b: { id: number; nome: string }) => ({
+    value: b.nome,
+    label: b.nome,
+  })) || [];
 
   useEffect(() => {
     try {
@@ -32,7 +39,7 @@ export default function Home() {
     } catch (error) {
       console.error("Não foi possível acessar o armazenamento local", error);
     }
-    setLoading(false);
+    setAppLoading(false);
   }, []);
 
   const handleEmployeeSelect = (selectedEmployee: string) => {
@@ -61,7 +68,7 @@ export default function Home() {
     }, 100);
   };
 
-  if (loading) {
+  if (appLoading) {
     return (
       <div className="flex items-center justify-center min-h-screen">
         <div className="flex flex-col items-center space-y-4">
@@ -76,7 +83,14 @@ export default function Home() {
   }
 
   if (!employee) {
-    return <EmployeeSelector onSelect={handleEmployeeSelect} />;
+    return (
+      <EmployeeSelector
+        onSelect={handleEmployeeSelect}
+        employees={employees}
+        isLoading={benneirosLoading}
+        isError={benneirosError}
+      />
+    );
   }
 
   return (
