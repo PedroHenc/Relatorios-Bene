@@ -8,4 +8,5 @@ export interface relatorios {
   edited_by?: string;
   created_at?: string;
   created_by?: string;
+  veiculo?: string;
 }

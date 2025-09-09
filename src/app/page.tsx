@@ -5,6 +5,7 @@ import { EmployeeSelector } from "@/components/employee-selector";
 import { PrintLayout } from "@/components/print-layout";
 import { Skeleton } from "@/components/ui/skeleton";
 import { type FormData, ValueCardForm } from "@/components/value-card-form";
+import useMutationRelatorios from "@/hooks/useMutationRelatorios";
 import { getBenneiros } from "@/services/sgbr-api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -15,6 +16,8 @@ export default function Home() {
   const [formDataForPrint, setFormDataForPrint] = useState<FormData | null>(
     null,
   );
+
+  const { postRelatorio } = useMutationRelatorios();
 
   const {
     data: benneiroData,
@@ -61,11 +64,39 @@ export default function Home() {
   };
 
   const handleFormSubmit = (data: FormData) => {
-    setFormDataForPrint(data);
-    setTimeout(() => {
-      window.print();
-      setFormDataForPrint(null);
-    }, 100);
+    const selectedEmployeeData = benneiroData?.data.find(
+      (b: { nome: string }) => b.nome === employee,
+    );
+
+    if (!selectedEmployeeData) {
+      console.error("Funcionário selecionado não encontrado.");
+      // TODO: Adicionar um toast de erro para o usuário.
+      return;
+    }
+
+    const relatorioData = {
+      beneiro_id: selectedEmployeeData.id,
+      cliente: data.clientName,
+      cpf: data.cpf ? Number(data.cpf.replace(/\D/g, "")) : undefined,
+      lucro: data.value,
+      categoria: data.reportType,
+      created_by: employee, // Adicionado para rastreamento
+      veiculo: data.carModel, // Adicionado campo veiculo
+    };
+
+    postRelatorio.mutate(relatorioData, {
+      onSuccess: () => {
+        setFormDataForPrint(data);
+        setTimeout(() => {
+          window.print();
+          setFormDataForPrint(null);
+        }, 100);
+      },
+      onError: (error) => {
+        console.error("Erro ao enviar relatório:", error);
+        // TODO: Adicionar um toast de erro para o usuário.
+      },
+    });
   };
 
   if (appLoading) {
@@ -98,7 +129,10 @@ export default function Home() {
       <div className="print:hidden flex flex-col min-h-screen bg-background">
         <AppHeader employee={employee} onLogout={handleLogout} />
         <main className="flex-1 flex items-center justify-center p-4 sm:p-6 md:p-8">
-          <ValueCardForm onSubmit={handleFormSubmit} />
+          <ValueCardForm
+            onSubmit={handleFormSubmit}
+            isSubmitting={postRelatorio.isPending}
+          />
         </main>
       </div>
       {formDataForPrint && (

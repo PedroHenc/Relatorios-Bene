@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { veiculosKK } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DollarSign, FileText, Send, User } from "lucide-react";
+import { DollarSign, FileText, Loader2, Send, User } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Combobox } from "./ui/combobox";
@@ -49,8 +49,10 @@ export type FormData = z.infer<typeof formSchema>;
 
 export function ValueCardForm({
   onSubmit,
+  isSubmitting,
 }: {
   onSubmit: (data: FormData) => void;
+  isSubmitting?: boolean;
 }) {
   const form = useForm<FormData>({
     resolver: zodResolver(formSchema),
@@ -145,7 +147,7 @@ export function ValueCardForm({
                     <div className="relative">
                       <FileText className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Input
-                        placeholder="00000"
+                        placeholder="000.000.000-00"
                         {...field}
                         className="pl-10"
                       />
@@ -195,9 +197,17 @@ export function ValueCardForm({
                 </FormItem>
               )}
             />
-            <Button type="submit" className="w-full h-11 text-base">
-              <Send className="mr-2 h-5 w-5" />
-              Enviar
+            <Button
+              type="submit"
+              className="w-full h-11 text-base"
+              disabled={isSubmitting}
+            >
+              {isSubmitting ? (
+                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+              ) : (
+                <Send className="mr-2 h-5 w-5" />
+              )}
+              {isSubmitting ? "Enviando..." : "Enviar"}
             </Button>
           </form>
         </Form>
