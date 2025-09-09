@@ -44,10 +44,7 @@ export function Combobox({
   const [open, setOpen] = React.useState(false);
 
   const selectedOption = React.useMemo(
-    () =>
-      options.find((option) =>
-        option.value.toLowerCase() === value?.toLowerCase()
-      ),
+    () => options.find((option) => option.value === value),
     [options, value],
   );
 
@@ -75,17 +72,19 @@ export function Combobox({
                   key={option.value}
                   value={option.value}
                   onSelect={(currentValue) => {
-                    const newValue = currentValue === value ? "" : currentValue;
-                    onChange?.(newValue);
+                    const selectedItem = options.find(
+                      (opt) => opt.value.toLowerCase() === currentValue.toLowerCase()
+                    );
+                    if (selectedItem) {
+                      onChange?.(selectedItem.value);
+                    }
                     setOpen(false);
                   }}
                 >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value?.toLowerCase() === option.value.toLowerCase()
-                        ? "opacity-100"
-                        : "opacity-0",
+                      value === option.value ? "opacity-100" : "opacity-0",
                     )}
                   />
                   {option.label}
