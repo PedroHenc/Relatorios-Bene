@@ -43,11 +43,6 @@ export function Combobox({
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
 
-  const selectedOption = React.useMemo(
-    () => options.find((option) => option.value === value),
-    [options, value],
-  );
-
   return (
     <Popover open={open} onOpenChange={setOpen}>
       <PopoverTrigger asChild>
@@ -57,7 +52,9 @@ export function Combobox({
           aria-expanded={open}
           className="w-full justify-between"
         >
-          {selectedOption ? selectedOption.label : placeholder}
+          {value ?
+            options.find((option) => option.value === value)?.label :
+            placeholder}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -72,12 +69,7 @@ export function Combobox({
                   key={option.value}
                   value={option.value}
                   onSelect={(currentValue) => {
-                    const selectedItem = options.find(
-                      (opt) => opt.value.toLowerCase() === currentValue.toLowerCase()
-                    );
-                    if (selectedItem) {
-                      onChange?.(selectedItem.value);
-                    }
+                    onChange?.(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
                 >
