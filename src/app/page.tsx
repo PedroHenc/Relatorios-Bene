@@ -39,6 +39,25 @@ export default function Home() {
     {} as Record<string, { value: string; label: string }[]>,
   );
 
+  const sortedGroupedEmployees = groupedEmployees ?
+    Object.entries(groupedEmployees).sort(([groupA], [groupB]) => {
+      const order = ["Presidência", "Gerência"];
+      const indexA = order.indexOf(groupA);
+      const indexB = order.indexOf(groupB);
+
+      if (indexA !== -1 && indexB !== -1) {
+        return indexA - indexB;
+      }
+      if (indexA !== -1) {
+        return -1;
+      }
+      if (indexB !== -1) {
+        return 1;
+      }
+      return groupA.localeCompare(groupB);
+    }) :
+    [];
+
   useEffect(() => {
     try {
       const storedEmployee = localStorage.getItem("selectedEmployee");
@@ -132,7 +151,7 @@ export default function Home() {
     return (
       <EmployeeSelector
         onSelect={handleEmployeeSelect}
-        employees={groupedEmployees || {}}
+        employees={sortedGroupedEmployees}
         isLoading={benneirosLoading}
         isError={benneirosError}
       />

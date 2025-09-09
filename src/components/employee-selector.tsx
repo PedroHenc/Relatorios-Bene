@@ -26,7 +26,7 @@ type Employee = {
   label: string;
 };
 
-type GroupedEmployees = Record<string, Employee[]>;
+type SortedGroupedEmployees = [string, Employee[]][];
 
 export function EmployeeSelector({
   onSelect,
@@ -35,7 +35,7 @@ export function EmployeeSelector({
   isError,
 }: {
   onSelect: (employee: string) => void;
-  employees: GroupedEmployees;
+  employees: SortedGroupedEmployees;
   isLoading: boolean;
   isError: boolean;
 }) {
@@ -91,7 +91,7 @@ export function EmployeeSelector({
                 </div>
               </SelectTrigger>
               <SelectContent>
-                {Object.entries(employees).map(([group, emps]) => (
+                {employees.map(([group, emps]) => (
                   <SelectGroup key={group}>
                     <SelectLabel>{group}</SelectLabel>
                     {emps.map((emp) => (
