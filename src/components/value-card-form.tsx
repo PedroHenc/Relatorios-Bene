@@ -1,9 +1,13 @@
 "use client";
 
-import { useForm } from "react-hook-form";
-import { zodResolver } from "@hookform/resolvers/zod";
-import * as z from "zod";
 import { Button } from "@/components/ui/button";
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardHeader,
+  CardTitle,
+} from "@/components/ui/card";
 import {
   Form,
   FormControl,
@@ -13,18 +17,14 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import {
-  Card,
-  CardContent,
-  CardDescription,
-  CardHeader,
-  CardTitle,
-} from "@/components/ui/card";
-import { DollarSign, Send, User } from "lucide-react";
-import { Combobox } from "./ui/combobox";
-import { Switch } from "./ui/switch";
-import { Label } from "./ui/label";
 import { veiculosKK } from "@/lib/utils";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { DollarSign, Send, User } from "lucide-react";
+import { useForm } from "react-hook-form";
+import * as z from "zod";
+import { Combobox } from "./ui/combobox";
+import { Label } from "./ui/label";
+import { Switch } from "./ui/switch";
 
 const carModels = veiculosKK.map((model) => ({
   label: model,
@@ -156,7 +156,7 @@ export function ValueCardForm({
               name="value"
               render={({ field }) => (
                 <FormItem>
-                  <FormLabel>Valor Acordado</FormLabel>
+                  <FormLabel>Lucro</FormLabel>
                   <FormControl>
                     <div className="relative">
                       <DollarSign className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
