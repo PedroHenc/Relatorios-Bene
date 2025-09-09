@@ -1,8 +1,9 @@
 "use client";
 
-import { Check, ChevronsUpDown } from "lucide-react";
 import * as React from "react";
+import { Check, ChevronsUpDown } from "lucide-react";
 
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -17,7 +18,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
 
 type ComboboxOption = {
   value: string;
@@ -67,14 +67,9 @@ export function Combobox({
               {options.map((option) => (
                 <CommandItem
                   key={option.value}
-                  value={option.value}
-                  onSelect={(currentValue) => {
-                    const selectedValue =
-                      options.find(
-                        (opt) =>
-                          opt.label.toLowerCase() === currentValue.toLowerCase(),
-                      )?.value ?? "";
-                    onChange?.(selectedValue === value ? "" : selectedValue);
+                  value={option.label} // Use label for filtering, value for selection
+                  onSelect={() => {
+                    onChange?.(option.value === value ? "" : option.value);
                     setOpen(false);
                   }}
                 >
