@@ -10,3 +10,10 @@ export interface relatorios {
   created_by?: string;
   veiculo?: string;
 }
+
+
+export interface Benneiro {
+  id: number
+  cargo: string;
+  nome: string;
+}
