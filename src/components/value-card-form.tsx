@@ -51,7 +51,7 @@ export function ValueCardForm({
   onSubmit,
   isSubmitting,
 }: {
-  onSubmit: (data: FormData) => void;
+  onSubmit: (data: FormData, resetForm: () => void) => void;
   isSubmitting?: boolean;
 }) {
   const form = useForm<FormData>({
@@ -65,19 +65,24 @@ export function ValueCardForm({
     },
   });
 
+  const handleFormSubmit = (data: FormData) => {
+    onSubmit(data, () => form.reset());
+  };
+
   return (
     <Card className="w-full max-w-lg shadow-lg">
       <CardHeader>
-        <CardTitle className="font-headline text-2xl">
-          Relatorio
-        </CardTitle>
+        <CardTitle className="font-headline text-2xl">Relatorio</CardTitle>
         <CardDescription>
           Insira os detalhes abaixo para gerar o relatório.
         </CardDescription>
       </CardHeader>
       <CardContent>
         <Form {...form}>
-          <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
+          <form
+            onSubmit={form.handleSubmit(handleFormSubmit)}
+            className="space-y-6"
+          >
             <FormField
               control={form.control}
               name="reportType"

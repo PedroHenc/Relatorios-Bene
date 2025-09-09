@@ -5,6 +5,7 @@ import { EmployeeSelector } from "@/components/employee-selector";
 import { Skeleton } from "@/components/ui/skeleton";
 import { type FormData, ValueCardForm } from "@/components/value-card-form";
 import useMutationRelatorios from "@/hooks/useMutationRelatorios";
+import { useToast } from "@/hooks/use-toast";
 import { getBenneiros } from "@/services/sgbr-api";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -13,6 +14,7 @@ export default function Home() {
   const [employee, setEmployee] = useState<string | null>(null);
   const [appLoading, setAppLoading] = useState(true);
 
+  const { toast } = useToast();
   const { postRelatorio } = useMutationRelatorios();
 
   const {
@@ -24,10 +26,11 @@ export default function Home() {
     queryFn: getBenneiros,
   });
 
-  const employees = benneiroData?.data.map((b: { id: number; nome: string }) => ({
-    value: b.nome,
-    label: b.nome,
-  })) || [];
+  const employees =
+    benneiroData?.data.map((b: { id: number; nome: string }) => ({
+      value: b.nome,
+      label: b.nome,
+    })) || [];
 
   useEffect(() => {
     try {
@@ -59,14 +62,17 @@ export default function Home() {
     }
   };
 
-  const handleFormSubmit = (data: FormData) => {
+  const handleFormSubmit = (data: FormData, resetForm: () => void) => {
     const selectedEmployeeData = benneiroData?.data.find(
       (b: { nome: string; cargo: string }) => b.nome === employee,
     );
 
     if (!selectedEmployeeData) {
-      console.error("Funcionário selecionado não encontrado.");
-      // TODO: Adicionar um toast de erro para o usuário.
+      toast({
+        title: "Erro",
+        description: "Funcionário selecionado não encontrado.",
+        variant: "destructive",
+      });
       return;
     }
 
@@ -75,20 +81,27 @@ export default function Home() {
       cliente: data.clientName,
       cpf: data.cpf ? Number(data.cpf.replace(/\D/g, "")) : undefined,
       lucro: data.value,
-      categoria: `Relatorio ${selectedEmployeeData.cargo}`,
+      categoria: { nome: `Relatorio ${selectedEmployeeData.cargo}` },
       created_by: employee,
       veiculo: data.carModel,
     };
 
     postRelatorio.mutate(relatorioData, {
       onSuccess: () => {
-        console.log("Relatório enviado com sucesso!");
-        // A funcionalidade de impressão foi removida.
-        // TODO: Adicionar um toast de sucesso para o usuário.
+        toast({
+          title: "Sucesso!",
+          description: "Relatório enviado com sucesso.",
+        });
+        resetForm();
       },
       onError: (error) => {
+        toast({
+          title: "Erro ao enviar",
+          description:
+            "Não foi possível enviar o relatório. Tente novamente.",
+          variant: "destructive",
+        });
         console.error("Erro ao enviar relatório:", error);
-        // TODO: Adicionar um toast de erro para o usuário.
       },
     });
   };
