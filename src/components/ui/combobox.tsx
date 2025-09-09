@@ -37,9 +37,9 @@ export function Combobox({
   options,
   value,
   onChange,
-  placeholder = "Select an option",
-  searchPlaceholder = "Search...",
-  notfoundtext = "No options found.",
+  placeholder = "Selecione uma opção",
+  searchPlaceholder = "Pesquisar...",
+  notfoundtext = "Nenhuma opção encontrada.",
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
 
@@ -53,13 +53,18 @@ export function Combobox({
           className="w-full justify-between"
         >
           {value ?
-            options.find((option) => option.value === value)?.label :
+            options.find((option) => option.label.toLowerCase() === value.toLowerCase())?.label :
             placeholder}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
-        <Command>
+        <Command
+          filter={(value, search) => {
+            if (value.toLowerCase().includes(search.toLowerCase())) return 1;
+            return 0;
+          }}
+        >
           <CommandInput placeholder={searchPlaceholder} />
           <CommandList>
             <CommandEmpty>{notfoundtext}</CommandEmpty>
@@ -67,9 +72,12 @@ export function Combobox({
               {options.map((option) => (
                 <CommandItem
                   key={option.value}
-                  value={option.value}
+                  value={option.label}
                   onSelect={(currentValue) => {
-                    onChange?.(currentValue === value ? "" : currentValue);
+                    const selectedValue = options.find(
+                      (opt) => opt.label.toLowerCase() === currentValue.toLowerCase()
+                    )?.value ?? "";
+                    onChange?.(selectedValue === value ? "" : selectedValue);
                     setOpen(false);
                   }}
                 >
