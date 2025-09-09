@@ -53,7 +53,7 @@ export function Combobox({
           className="w-full justify-between"
         >
           {value ?
-            options.find((option) => option.label.toLowerCase() === value.toLowerCase())?.label :
+            options.find((option) => option.value === value)?.label :
             placeholder}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
@@ -61,7 +61,8 @@ export function Combobox({
       <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
         <Command
           filter={(value, search) => {
-            if (value.toLowerCase().includes(search.toLowerCase())) return 1;
+            const extendedValue = options.find(opt => opt.value === value)?.label ?? value;
+            if (extendedValue.toLowerCase().includes(search.toLowerCase())) return 1;
             return 0;
           }}
         >
@@ -72,12 +73,9 @@ export function Combobox({
               {options.map((option) => (
                 <CommandItem
                   key={option.value}
-                  value={option.label}
+                  value={option.value} // Use value here for filtering and onSelect
                   onSelect={(currentValue) => {
-                    const selectedValue = options.find(
-                      (opt) => opt.label.toLowerCase() === currentValue.toLowerCase()
-                    )?.value ?? "";
-                    onChange?.(selectedValue === value ? "" : selectedValue);
+                    onChange?.(currentValue === value ? "" : currentValue);
                     setOpen(false);
                   }}
                 >
