@@ -39,8 +39,8 @@ export default function Home() {
     {} as Record<string, { value: string; label: string }[]>,
   );
 
-  const sortedGroupedEmployees = groupedEmployees ?
-    Object.entries(groupedEmployees).sort(([groupA], [groupB]) => {
+  const sortedGroupedEmployees = groupedEmployees
+    ? Object.entries(groupedEmployees).sort(([groupA], [groupB]) => {
       const order = ["Presidência", "Gerência"];
       const indexA = order.indexOf(groupA);
       const indexB = order.indexOf(groupB);
@@ -55,8 +55,8 @@ export default function Home() {
         return 1;
       }
       return groupA.localeCompare(groupB);
-    }) :
-    [];
+    })
+    : [];
 
   useEffect(() => {
     try {
@@ -124,8 +124,7 @@ export default function Home() {
       onError: (error) => {
         toast({
           title: "Erro ao enviar",
-          description:
-            "Não foi possível enviar o relatório. Tente novamente.",
+          description: "Não foi possível enviar o relatório. Tente novamente.",
           variant: "destructive",
         });
         console.error("Erro ao enviar relatório:", error);

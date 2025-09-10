@@ -59,7 +59,7 @@ export function ValueCardForm({
     defaultValues: {
       clientName: "",
       cpf: "",
-      carModel: "",
+      carModel: undefined,
       value: "" as any,
       reportType: "normal",
     },
@@ -162,24 +162,24 @@ export function ValueCardForm({
                 </FormItem>
               )}
             />
-            <FormField
-              control={form.control}
-              name="carModel"
-              render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Modelo do Carro</FormLabel>
-                  <Combobox
-                    options={carModels}
-                    value={field.value}
-                    onChange={(value) => field.onChange(value)}
-                    placeholder="Selecione um modelo..."
-                    searchPlaceholder="Procure um modelo..."
-                    notfoundtext="Nenhum modelo encontrado."
-                  />
-                  <FormMessage />
-                </FormItem>
-              )}
-            />
+          <FormField
+  control={form.control}
+  name="carModel"
+  render={({ field }) => (
+    <FormItem className="flex flex-col">
+      <FormLabel>Modelo do Carro</FormLabel>
+      <Combobox
+        options={carModels}
+        value={field.value}
+        onChange={field.onChange}
+        placeholder="Selecione um modelo..."
+        searchPlaceholder="Procure um modelo..."
+        notfoundtext="Nenhum modelo encontrado."
+      />
+      <FormMessage />
+    </FormItem>
+  )}
+/>
             <FormField
               control={form.control}
               name="value"
@@ -207,11 +207,9 @@ export function ValueCardForm({
               className="w-full h-11 text-base"
               disabled={isSubmitting}
             >
-              {isSubmitting ? (
-                <Loader2 className="mr-2 h-5 w-5 animate-spin" />
-              ) : (
-                <Send className="mr-2 h-5 w-5" />
-              )}
+              {isSubmitting
+                ? <Loader2 className="mr-2 h-5 w-5 animate-spin" />
+                : <Send className="mr-2 h-5 w-5" />}
               {isSubmitting ? "Enviando..." : "Enviar"}
             </Button>
           </form>

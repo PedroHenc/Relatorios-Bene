@@ -14,12 +14,24 @@ export const sendRelatorioToDiscord = async (relatorio: relatorios) => {
     title: `📄 ${relatorio.categoria || ""}`,
     color: 5814783,
     fields: [
-      { name: "👤 NOME", value: relatorio.cliente || "N/A", inline: true },
-      { name: "💳 CPF", value: relatorio.cpf?.toString() || "N/A", inline: true },
+      { name: "👤 CLIENTE", value: relatorio.cliente || "N/A", inline: true },
+      {
+        name: "💳 CPF",
+        value: relatorio.cpf?.toString() || "N/A",
+        inline: true,
+      },
       { name: "🚗 VEÍCULO", value: relatorio.veiculo || "N/A", inline: true },
       { name: "🧑‍💼 BENEIRO", value: relatorio.created_by, inline: true },
-      { name: "💰 LUCRO", value: relatorio.lucro?.toString() || "0", inline: true },
-      { name: "💼 LEILÃO", value: relatorio.leilao ? "Sim" : "Não", inline: true },
+      {
+        name: "💰 LUCRO",
+        value: relatorio.lucro?.toString() || "0",
+        inline: true,
+      },
+      {
+        name: "💼 LEILÃO",
+        value: relatorio.leilao ? "Sim" : "Não",
+        inline: true,
+      },
     ],
     timestamp: new Date().toISOString(),
   };

@@ -13,7 +13,7 @@ export interface relatorios {
 }
 
 export interface Benneiro {
-  id: number
+  id: number;
   cargo: string;
   nome: string;
 }

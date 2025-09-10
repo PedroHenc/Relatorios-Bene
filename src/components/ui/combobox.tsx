@@ -42,11 +42,19 @@ export function Combobox({
   notfoundtext = "No options found.",
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
+  const [search, setSearch] = React.useState("");
 
   const selectedOption = React.useMemo(
     () => options.find((option) => option.value === value),
     [options, value],
   );
+
+  const filteredOptions = React.useMemo(() => {
+    if (!search) return options;
+    return options.filter((option) =>
+      option.label.toLowerCase().includes(search.toLowerCase())
+    );
+  }, [options, search]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -61,35 +69,39 @@ export function Combobox({
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
+
       <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
         <Command>
-          <CommandInput placeholder={searchPlaceholder} />
+          <CommandInput
+            placeholder={searchPlaceholder}
+            value={search}
+            onValueChange={setSearch}
+          />
           <CommandList>
-            <CommandEmpty>{notfoundtext}</CommandEmpty>
             <CommandGroup>
-              {options.map((option) => (
+              {filteredOptions.map((option) => (
                 <CommandItem
-                  key={option.value}
-                  value={option.value}
-                  onSelect={(currentValue) => {
-                    const selectedItem = options.find(
-                      (opt) => opt.value.toLowerCase() === currentValue.toLowerCase()
-                    );
-                    if (selectedItem) {
-                      onChange?.(selectedItem.value);
-                    }
+                key={option.value}
+                value={option.value}
+                onSelect={(currentValue) => {
+                  onChange?.(currentValue);
                     setOpen(false);
+                    setSearch("");
                   }}
-                >
+                  >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value === option.value ? "opacity-100" : "opacity-0",
+                      value?.toLowerCase() === option.value.toLowerCase()
+                      ? "opacity-100"
+                      : "opacity-0",
                     )}
-                  />
+                    />
+
                   {option.label}
                 </CommandItem>
               ))}
+              <CommandEmpty>{notfoundtext}</CommandEmpty>
             </CommandGroup>
           </CommandList>
         </Command>

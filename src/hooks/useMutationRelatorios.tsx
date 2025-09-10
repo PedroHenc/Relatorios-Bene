@@ -1,4 +1,8 @@
-import { getBenneiros, postRelatorios, sendRelatorioToDiscord } from "@/services/sgbr-api";
+import {
+  getBenneiros,
+  postRelatorios,
+  sendRelatorioToDiscord,
+} from "@/services/sgbr-api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useMutationRelatorios = () => {
@@ -12,18 +16,18 @@ const useMutationRelatorios = () => {
   });
 
   const postRelatorioMutate = useMutation({
-  mutationFn: postRelatorios,
-  onSuccess: async (data, variables) => {
-    queryClient.invalidateQueries({ queryKey: ["relatorios"] });
+    mutationFn: postRelatorios,
+    onSuccess: async (data, variables) => {
+      queryClient.invalidateQueries({ queryKey: ["relatorios"] });
 
-    try {
-      await sendRelatorioToDiscord(variables);
-      console.log("Relatório enviado pro Discord!");
-    } catch (err) {
-      console.error(err);
-    }
-  },
-});
+      try {
+        await sendRelatorioToDiscord(variables);
+        console.log("Relatório enviado pro Discord!");
+      } catch (err) {
+        console.error(err);
+      }
+    },
+  });
 
   return {
     getBenneuiro: getBenneirosMutate,

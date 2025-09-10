@@ -17,7 +17,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { AlertCircle, User, Loader2 } from "lucide-react";
+import { AlertCircle, Loader2, User } from "lucide-react";
 import { Logo } from "./logo";
 import { Alert, AlertDescription, AlertTitle } from "./ui/alert";
 
@@ -60,54 +60,54 @@ export function EmployeeSelector({
           <CardDescription>Selecione seu perfil para começar</CardDescription>
         </CardHeader>
         <CardContent className="space-y-6 pt-2">
-          {isError ? (
-            <Alert variant="destructive">
-              <AlertCircle className="h-4 w-4" />
-              <AlertTitle>Erro</AlertTitle>
-              <AlertDescription>
-                Não foi possível carregar a lista de funcionários.
-              </AlertDescription>
-            </Alert>
-          ) : (
-            <Select
-              value={selected}
-              onValueChange={setSelected}
-              disabled={isLoading}
-            >
-              <SelectTrigger className="h-12 text-base">
-                <div className="flex items-center">
-                  {isLoading ? (
-                    <Loader2 className="mr-3 h-5 w-5 text-muted-foreground animate-spin" />
-                  ) : (
-                    <User className="mr-3 h-5 w-5 text-muted-foreground" />
-                  )}
-                  <SelectValue
-                    placeholder={
-                      isLoading
+          {isError
+            ? (
+              <Alert variant="destructive">
+                <AlertCircle className="h-4 w-4" />
+                <AlertTitle>Erro</AlertTitle>
+                <AlertDescription>
+                  Não foi possível carregar a lista de funcionários.
+                </AlertDescription>
+              </Alert>
+            )
+            : (
+              <Select
+                value={selected}
+                onValueChange={setSelected}
+                disabled={isLoading}
+              >
+                <SelectTrigger className="h-12 text-base">
+                  <div className="flex items-center">
+                    {isLoading
+                      ? (
+                        <Loader2 className="mr-3 h-5 w-5 text-muted-foreground animate-spin" />
+                      )
+                      : <User className="mr-3 h-5 w-5 text-muted-foreground" />}
+                    <SelectValue
+                      placeholder={isLoading
                         ? "Carregando funcionários..."
-                        : "Selecione um funcionário..."
-                    }
-                  />
-                </div>
-              </SelectTrigger>
-              <SelectContent>
-                {employees.map(([group, emps]) => (
-                  <SelectGroup key={group}>
-                    <SelectLabel>{group}</SelectLabel>
-                    {emps.map((emp) => (
-                      <SelectItem
-                        key={emp.value}
-                        value={emp.value}
-                        className="text-base py-2"
-                      >
-                        {emp.label}
-                      </SelectItem>
-                    ))}
-                  </SelectGroup>
-                ))}
-              </SelectContent>
-            </Select>
-          )}
+                        : "Selecione um funcionário..."}
+                    />
+                  </div>
+                </SelectTrigger>
+                <SelectContent>
+                  {employees.map(([group, emps]) => (
+                    <SelectGroup key={group}>
+                      <SelectLabel>{group}</SelectLabel>
+                      {emps.map((emp) => (
+                        <SelectItem
+                          key={emp.value}
+                          value={emp.value}
+                          className="text-base py-2"
+                        >
+                          {emp.label}
+                        </SelectItem>
+                      ))}
+                    </SelectGroup>
+                  ))}
+                </SelectContent>
+              </Select>
+            )}
           <Button
             onClick={handleSelect}
             disabled={!selected || isLoading || isError}
