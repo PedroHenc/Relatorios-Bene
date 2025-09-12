@@ -17,7 +17,7 @@ export const sendRelatorioToDiscord = async (relatorio: relatorios) => {
       { name: "👤 NOME", value: relatorio.cliente || "N/A", inline: true },
       { name: "💳 CPF", value: relatorio.cpf?.toString() || "N/A", inline: true },
       { name: "🚗 VEÍCULO", value: relatorio.veiculo || "N/A", inline: true },
-      { name: "🔧 ESCAPE", value: relatorio.escape || "N/A", inline: true },
+      { name: "ESCAPE", value: relatorio.escape || "N/A", inline: true },
       { name: "🧑‍💼 BENEIRO", value: relatorio.created_by, inline: true },
       { name: "💰 LUCRO", value: `R$ ${relatorio.lucro?.toLocaleString('pt-BR') || "0"}`, inline: true },
       { name: "💼 LEILÃO", value: relatorio.leilao ? "Sim" : "Não", inline: true },
