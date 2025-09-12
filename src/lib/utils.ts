@@ -593,6 +593,8 @@ export const veiculosKK = [
   ];
 
   export const escapeOptions = [
+      "Retirar Escape",
+      "None",
       "I4 Atual BF (Golf GTI*)",
       "I4 Atual Karin (Sultan)",
       "I4 Atual Karin (Kuruma)",
@@ -674,3 +676,4 @@ export const veiculosKK = [
       "Rotatório Antigo Annis (ZR350)"
     ]
   
+    

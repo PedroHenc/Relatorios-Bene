@@ -177,7 +177,6 @@ export function ValueCardForm({
                   <FormLabel>Escape</FormLabel>
                   <FormControl>
                     <div className="relative">
-                      <Wrench className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
                       <Combobox
                         options={escapeOptions}
                         value={field.value}
