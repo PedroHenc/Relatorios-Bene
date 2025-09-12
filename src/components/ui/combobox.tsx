@@ -1,9 +1,8 @@
 "use client";
 
-import * as React from "react";
 import { Check, ChevronsUpDown } from "lucide-react";
+import * as React from "react";
 
-import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -18,6 +17,7 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 type ComboboxOption = {
   value: string;
@@ -42,19 +42,6 @@ export function Combobox({
   notfoundtext = "Nenhuma opção encontrada.",
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
-  const [search, setSearch] = React.useState("");
-
-  const selectedOption = React.useMemo(
-    () => options.find((option) => option.value === value),
-    [options, value],
-  );
-
-  const filteredOptions = React.useMemo(() => {
-    if (!search) return options;
-    return options.filter((option) =>
-      option.label.toLowerCase().includes(search.toLowerCase())
-    );
-  }, [options, search]);
 
   return (
     <Popover open={open} onOpenChange={setOpen}>
@@ -65,49 +52,36 @@ export function Combobox({
           aria-expanded={open}
           className="w-full justify-between"
         >
-          {value ?
-            options.find((option) => option.value === value)?.label :
-            placeholder}
+          {value
+            ? options.find((option) => option.value === value)?.label
+            : placeholder}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
-
-      <PopoverContent className="w-[--radix-popover-trigger-width] p-0">
+      <PopoverContent className="w-[var(--radix-popover-trigger-width)] p-0">
         <Command>
-          <CommandInput
-            placeholder={searchPlaceholder}
-            value={search}
-            onValueChange={setSearch}
-          />
+          <CommandInput placeholder={searchPlaceholder} />
           <CommandList>
+            <CommandEmpty>{notfoundtext}</CommandEmpty>
             <CommandGroup>
-              {filteredOptions.map((option) => (
+              {options.map((option) => (
                 <CommandItem
-                key={option.value}
-                value={option.value}
-                onSelect={(currentValue) => {
-                  onChange?.(currentValue);
                   key={option.value}
                   value={option.value}
                   onSelect={(currentValue) => {
                     onChange?.(currentValue === value ? "" : currentValue);
                     setOpen(false);
-                    setSearch("");
                   }}
-                  >
+                >
                   <Check
                     className={cn(
                       "mr-2 h-4 w-4",
-                      value?.toLowerCase() === option.value.toLowerCase()
-                      ? "opacity-100"
-                      : "opacity-0",
+                      value === option.value ? "opacity-100" : "opacity-0",
                     )}
-                    />
-
+                  />
                   {option.label}
                 </CommandItem>
               ))}
-              <CommandEmpty>{notfoundtext}</CommandEmpty>
             </CommandGroup>
           </CommandList>
         </Command>
@@ -115,4 +89,3 @@ export function Combobox({
     </Popover>
   );
 }
-

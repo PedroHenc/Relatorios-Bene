@@ -10,32 +10,41 @@ const webhookUrl =
   "https://discord.com/api/webhooks/1415031572314198046/-7ld3zlqLQkFNJMHmU7rdN-AfkgDsj1VcUljZ301hvJuENw37mD6I9jhj2Co9GAqMPwT";
 
 export const sendRelatorioToDiscord = async (relatorio: relatorios) => {
+  const fields = [
+    { name: "👤 CLIENTE", value: relatorio.cliente || "N/A", inline: true },
+    {
+      name: "💳 CPF",
+      value: relatorio.cpf?.toString() || "N/A",
+      inline: true,
+    },
+    { name: "🚗 VEÍCULO", value: relatorio.veiculo || "N/A", inline: true },
+    { name: "🧑‍💼 BENEIRO", value: relatorio.created_by, inline: true },
+    {
+      name: "💰 LUCRO",
+      value: `R$ ${relatorio.lucro?.toLocaleString("pt-BR") || "0"}`,
+      inline: true,
+    },
+    {
+      name: "💼 LEILÃO",
+      value: relatorio.leilao ? "Sim" : "Não",
+      inline: true,
+    },
+  ];
+  if (
+    relatorio.escape !== undefined && relatorio.escape !== null &&
+    relatorio.escape !== ""
+  ) {
+    fields.splice(3, 0, {
+      name: "ESCAPE",
+      value: relatorio.escape,
+      inline: true,
+    });
+  }
+
   const embed = {
     title: `📄 ${relatorio.categoria || ""}`,
     color: 5814783,
-    fields: [
-      { name: "👤 CLIENTE", value: relatorio.cliente || "N/A", inline: true },
-      {
-        name: "💳 CPF",
-        value: relatorio.cpf?.toString() || "N/A",
-        inline: true,
-      },
-      { name: "🚗 VEÍCULO", value: relatorio.veiculo || "N/A", inline: true },
-      { name: "ESCAPE", value: relatorio.escape || "N/A", inline: true },
-      { name: "🧑‍💼 BENEIRO", value: relatorio.created_by, inline: true },
-      {
-        name: "💰 LUCRO",
-        value: relatorio.lucro?.toString() || "0",
-        inline: true,
-      },
-      {
-        name: "💼 LEILÃO",
-        value: relatorio.leilao ? "Sim" : "Não",
-        inline: true,
-      },
-      { name: "💰 LUCRO", value: `R$ ${relatorio.lucro?.toLocaleString('pt-BR') || "0"}`, inline: true },
-      { name: "💼 LEILÃO", value: relatorio.leilao ? "Sim" : "Não", inline: true },
-    ],
+    fields,
     timestamp: new Date().toISOString(),
   };
 

@@ -32,8 +32,8 @@ const carModels = veiculosKK.map((model) => ({
 }));
 
 const escapeOptions = escapeOptionsList.map((escape) => ({
-  label: escape,
-  value: escape,
+  label: escape.label,
+  value: escape.label,
 }));
 
 const formSchema = z.object({
@@ -202,6 +202,7 @@ export function ValueCardForm({
                 </FormItem>
               )}
             />
+
             <FormField
               control={form.control}
               name="carModel"
@@ -211,7 +212,7 @@ export function ValueCardForm({
                   <Combobox
                     options={carModels}
                     value={field.value}
-                    onChange={(value) => field.onChange(value)}
+                    onChange={field.onChange}
                     placeholder="Selecione um modelo..."
                     searchPlaceholder="Procure um modelo..."
                     notfoundtext="Nenhum modelo encontrado."
@@ -220,24 +221,6 @@ export function ValueCardForm({
                 </FormItem>
               )}
             />
-          <FormField
-  control={form.control}
-  name="carModel"
-  render={({ field }) => (
-    <FormItem className="flex flex-col">
-      <FormLabel>Modelo do Carro</FormLabel>
-      <Combobox
-        options={carModels}
-        value={field.value}
-        onChange={field.onChange}
-        placeholder="Selecione um modelo..."
-        searchPlaceholder="Procure um modelo..."
-        notfoundtext="Nenhum modelo encontrado."
-      />
-      <FormMessage />
-    </FormItem>
-  )}
-/>
             <FormField
               control={form.control}
               name="value"
