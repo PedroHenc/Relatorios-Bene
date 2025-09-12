@@ -110,6 +110,7 @@ export default function Home() {
       categoria: `Relatorio ${selectedEmployeeData.cargo}`,
       created_by: employee,
       veiculo: data.carModel,
+      escape: data.escape,
       leilao: data.reportType === "leilao",
     };
 

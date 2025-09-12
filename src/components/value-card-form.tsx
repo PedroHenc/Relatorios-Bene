@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { veiculosKK } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DollarSign, FileText, Loader2, Send, User } from "lucide-react";
+import { DollarSign, FileText, Loader2, Send, User, Wrench } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Combobox } from "./ui/combobox";
@@ -31,11 +31,19 @@ const carModels = veiculosKK.map((model) => ({
   value: model.nome,
 }));
 
+const escapeOptions = [
+  { label: "Normal", value: "Normal" },
+  { label: "Esportivo", value: "Esportivo" },
+  { label: "Turbo", value: "Turbo" },
+  { label: "Custom", value: "Custom" },
+];
+
 const formSchema = z.object({
   clientName: z
     .string()
     .min(2, { message: "O nome do cliente deve ter pelo menos 2 caracteres." }),
   cpf: z.string().optional(),
+  escape: z.string().min(1, { message: "Por favor, selecione um tipo de escape." }),
   carModel: z
     .string()
     .min(1, { message: "Por favor, selecione um modelo de carro." }),
@@ -59,6 +67,7 @@ export function ValueCardForm({
     defaultValues: {
       clientName: "",
       cpf: "",
+      escape: "",
       carModel: "",
       value: "" as any,
       reportType: "normal",
@@ -155,6 +164,29 @@ export function ValueCardForm({
                         placeholder="000.000.000-00"
                         {...field}
                         className="pl-10"
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="escape"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Escape</FormLabel>
+                  <FormControl>
+                    <div className="relative">
+                      <Wrench className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                      <Combobox
+                        options={escapeOptions}
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder="Selecione um escape..."
+                        searchPlaceholder="Procure um escape..."
+                        notfoundtext="Nenhum escape encontrado."
                       />
                     </div>
                   </FormControl>
