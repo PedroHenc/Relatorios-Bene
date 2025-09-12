@@ -19,7 +19,7 @@ import {
 import { Input } from "@/components/ui/input";
 import { veiculosKK, escapeOptions as escapeOptionsList } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DollarSign, FileText, Loader2, Send, User, Wrench } from "lucide-react";
+import { DollarSign, FileText, Loader2, Send, User, X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Combobox } from "./ui/combobox";
@@ -41,7 +41,7 @@ const formSchema = z.object({
     .string()
     .min(2, { message: "O nome do cliente deve ter pelo menos 2 caracteres." }),
   cpf: z.string().optional(),
-  escape: z.string().min(1, { message: "Por favor, selecione um tipo de escape." }),
+  escape: z.string().optional(),
   carModel: z
     .string()
     .min(1, { message: "Por favor, selecione um modelo de carro." }),
@@ -174,7 +174,19 @@ export function ValueCardForm({
               name="escape"
               render={({ field }) => (
                 <FormItem className="flex flex-col">
-                  <FormLabel>Escape</FormLabel>
+                  <div className="flex justify-between items-center">
+                    <FormLabel>Escape</FormLabel>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="h-7"
+                      onClick={() => form.setValue("escape", "")}
+                    >
+                      <X className="h-4 w-4 mr-1" />
+                      Limpar
+                    </Button>
+                  </div>
                   <FormControl>
                     <div className="relative">
                       <Combobox
