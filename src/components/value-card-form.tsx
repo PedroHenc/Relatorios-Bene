@@ -17,9 +17,9 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { veiculosKK } from "@/lib/utils";
+import { escapeOptions as escapeOptionsList, veiculosKK } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { DollarSign, FileText, Loader2, Send, User } from "lucide-react";
+import { DollarSign, FileText, Loader2, Send, User, X } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
 import { Combobox } from "./ui/combobox";
@@ -27,8 +27,13 @@ import { Label } from "./ui/label";
 import { Switch } from "./ui/switch";
 
 const carModels = veiculosKK.map((model) => ({
-  label: model,
-  value: model,
+  label: model.nome,
+  value: model.nome,
+}));
+
+const escapeOptions = escapeOptionsList.map((escape) => ({
+  label: escape,
+  value: escape,
 }));
 
 const formSchema = z.object({
@@ -36,9 +41,10 @@ const formSchema = z.object({
     .string()
     .min(2, { message: "O nome do cliente deve ter pelo menos 2 caracteres." }),
   cpf: z.string().optional(),
+  escape: z.string().optional(),
   carModel: z
     .string()
-    .min(2, { message: "O modelo do carro deve ter pelo menos 2 caracteres." }),
+    .min(1, { message: "Por favor, selecione um modelo de carro." }),
   value: z.coerce
     .number({ invalid_type_error: "Por favor, insira um número válido." })
     .positive({ message: "O valor deve ser um número positivo." }),
@@ -158,6 +164,58 @@ export function ValueCardForm({
                       />
                     </div>
                   </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="escape"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <div className="flex justify-between items-center">
+                    <FormLabel>Escape</FormLabel>
+                    <Button
+                      type="button"
+                      variant="ghost"
+                      size="sm"
+                      className="h-7"
+                      onClick={() => form.setValue("escape", "")}
+                    >
+                      <X className="h-4 w-4 mr-1" />
+                      Limpar
+                    </Button>
+                  </div>
+                  <FormControl>
+                    <div className="relative">
+                      <Combobox
+                        options={escapeOptions}
+                        value={field.value}
+                        onChange={field.onChange}
+                        placeholder="Selecione um escape..."
+                        searchPlaceholder="Procure um escape..."
+                        notfoundtext="Nenhum escape encontrado."
+                      />
+                    </div>
+                  </FormControl>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+            <FormField
+              control={form.control}
+              name="carModel"
+              render={({ field }) => (
+                <FormItem className="flex flex-col">
+                  <FormLabel>Modelo do Carro</FormLabel>
+                  <Combobox
+                    options={carModels}
+                    value={field.value}
+                    onChange={(value) => field.onChange(value)}
+                    placeholder="Selecione um modelo..."
+                    searchPlaceholder="Procure um modelo..."
+                    notfoundtext="Nenhum modelo encontrado."
+                  />
                   <FormMessage />
                 </FormItem>
               )}

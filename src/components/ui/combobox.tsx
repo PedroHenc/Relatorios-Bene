@@ -1,8 +1,9 @@
 "use client";
 
-import { Check, ChevronsUpDown } from "lucide-react";
 import * as React from "react";
+import { Check, ChevronsUpDown } from "lucide-react";
 
+import { cn } from "@/lib/utils";
 import { Button } from "@/components/ui/button";
 import {
   Command,
@@ -17,7 +18,6 @@ import {
   PopoverContent,
   PopoverTrigger,
 } from "@/components/ui/popover";
-import { cn } from "@/lib/utils";
 
 type ComboboxOption = {
   value: string;
@@ -37,9 +37,9 @@ export function Combobox({
   options,
   value,
   onChange,
-  placeholder = "Select an option",
-  searchPlaceholder = "Search...",
-  notfoundtext = "No options found.",
+  placeholder = "Selecione uma opção",
+  searchPlaceholder = "Pesquisar...",
+  notfoundtext = "Nenhuma opção encontrada.",
 }: ComboboxProps) {
   const [open, setOpen] = React.useState(false);
   const [search, setSearch] = React.useState("");
@@ -65,7 +65,9 @@ export function Combobox({
           aria-expanded={open}
           className="w-full justify-between"
         >
-          {selectedOption ? selectedOption.label : placeholder}
+          {value ?
+            options.find((option) => option.value === value)?.label :
+            placeholder}
           <ChevronsUpDown className="ml-2 h-4 w-4 shrink-0 opacity-50" />
         </Button>
       </PopoverTrigger>
@@ -85,6 +87,10 @@ export function Combobox({
                 value={option.value}
                 onSelect={(currentValue) => {
                   onChange?.(currentValue);
+                  key={option.value}
+                  value={option.value}
+                  onSelect={(currentValue) => {
+                    onChange?.(currentValue === value ? "" : currentValue);
                     setOpen(false);
                     setSearch("");
                   }}
@@ -109,3 +115,4 @@ export function Combobox({
     </Popover>
   );
 }
+
