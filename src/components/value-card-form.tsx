@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { veiculosKK } from "@/lib/utils";
+import { veiculosKK, escapeOptions as escapeOptionsList } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DollarSign, FileText, Loader2, Send, User, Wrench } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -31,12 +31,10 @@ const carModels = veiculosKK.map((model) => ({
   value: model.nome,
 }));
 
-const escapeOptions = [
-  { label: "Normal", value: "Normal" },
-  { label: "Esportivo", value: "Esportivo" },
-  { label: "Turbo", value: "Turbo" },
-  { label: "Custom", value: "Custom" },
-];
+const escapeOptions = escapeOptionsList.map((escape) => ({
+  label: escape,
+  value: escape,
+}));
 
 const formSchema = z.object({
   clientName: z
