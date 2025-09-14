@@ -21,7 +21,7 @@ export const sendRelatorioToDiscord = async (relatorio: relatorios) => {
     { name: "🧑‍💼 BENEIRO", value: relatorio.created_by, inline: true },
     {
       name: "💰 LUCRO",
-      value: `R$ ${relatorio.lucro?.toLocaleString("pt-BR") || "0"}`,
+      value: `$ ${relatorio.lucro?.toLocaleString("pt-BR") || "0"}`,
       inline: true,
     },
     {
