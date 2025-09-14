@@ -592,8 +592,6 @@ export const veiculosKK = [
   { id: 585, nome: "ZR350 Custom" },
 ];
 export const escapeOptions = [
-  { id: 0, label: "Retirar Escape" },
-  { id: 1, label: "None" },
   { id: 2, label: "I4 Atual BF (Golf GTI*)" },
   { id: 3, label: "I4 Atual Karin (Sultan)" },
   { id: 4, label: "I4 Atual Karin (Kuruma)" },
