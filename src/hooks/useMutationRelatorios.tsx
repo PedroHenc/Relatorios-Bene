@@ -1,8 +1,4 @@
-import {
-  getBenneiros,
-  postRelatorios,
-  sendRelatorioToDiscord,
-} from "@/services/sgbr-api";
+import { getBenneiros, postRelatorios, sendRelatorioToDiscord, sendRelatorioToDiscordLeilao } from "@/services/sgbr-api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useMutationRelatorios = () => {
@@ -21,10 +17,15 @@ const useMutationRelatorios = () => {
       queryClient.invalidateQueries({ queryKey: ["relatorios"] });
 
       try {
-        await sendRelatorioToDiscord(variables);
-        console.log("Relatório enviado pro Discord!");
+        if (variables.leilao) {
+          await sendRelatorioToDiscordLeilao(variables);
+          console.log("Relatório de leilão enviado pro Discord!");
+        } else {
+          await sendRelatorioToDiscord(variables);
+          console.log("Relatório normal enviado pro Discord!");
+        }
       } catch (err) {
-        console.error(err);
+        console.error("Erro ao enviar relatório para o Discord:", err);
       }
     },
   });
