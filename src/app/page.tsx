@@ -41,7 +41,7 @@ export default function Home() {
 
   const sortedGroupedEmployees = groupedEmployees
     ? Object.entries(groupedEmployees).sort(([groupA], [groupB]) => {
-      const order = ["Presidência", "Gerência"];
+      const order = ["Presidente", "Gerência"];
       const indexA = order.indexOf(groupA);
       const indexB = order.indexOf(groupB);
 
