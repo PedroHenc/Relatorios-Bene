@@ -1,5 +1,6 @@
 import { SpeedInsights } from '@vercel/speed-insights/next';
 import { ReactQueryProvider } from "@/components/react-provider";
+import { Analytics } from "@vercel/analytics/next"
 import { ThemeProvider } from "@/components/theme-provider";
 import { Toaster } from "@/components/ui/toaster";
 import type { Metadata } from "next";
@@ -42,6 +43,7 @@ export default function RootLayout({
           </ThemeProvider>
         </ReactQueryProvider>
         <SpeedInsights />
+        <Analytics/>
       </body>
     </html>
   );
