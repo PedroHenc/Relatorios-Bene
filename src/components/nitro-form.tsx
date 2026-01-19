@@ -17,20 +17,17 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { nitroKitOptions } from "@/lib/utils";
+import { Switch } from "@/components/ui/switch";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { Fuel, Loader2, Send, User } from "lucide-react";
 import { useForm } from "react-hook-form";
 import * as z from "zod";
-import { Combobox } from "./ui/combobox";
 
 const formSchema = z.object({
   clientName: z
     .string()
     .min(2, { message: "O nome do cliente deve ter pelo menos 2 caracteres." }),
-  kit_nitro: z
-    .string()
-    .min(1, { message: "Por favor, selecione um kit de nitro." }),
+  kit_nitro: z.boolean().default(false),
   nitro: z.coerce
     .number({ invalid_type_error: "Por favor, insira um número válido." })
     .positive({ message: "O valor deve ser um número positivo." }),
@@ -49,7 +46,7 @@ export function NitroForm({
     resolver: zodResolver(formSchema),
     defaultValues: {
       clientName: "",
-      kit_nitro: "",
+      kit_nitro: false,
       nitro: "" as any,
     },
   });
@@ -99,17 +96,22 @@ export function NitroForm({
               control={form.control}
               name="kit_nitro"
               render={({ field }) => (
-                <FormItem className="flex flex-col">
-                  <FormLabel>Kit de Nitro</FormLabel>
-                  <Combobox
-                    options={nitroKitOptions}
-                    value={field.value}
-                    onChange={field.onChange}
-                    placeholder="Selecione um kit..."
-                    searchPlaceholder="Procure um kit..."
-                    notfoundtext="Nenhum kit encontrado."
-                  />
-                  <FormMessage />
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                  <div className="space-y-0.5">
+                    <FormLabel>Kit Básico de Nitro</FormLabel>
+                    <p className="text-sm text-muted-foreground">
+                      O kit foi instalado?{" "}
+                      <span className="font-semibold text-foreground">
+                        {field.value ? "Sim" : "Não"}
+                      </span>
+                    </p>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
                 </FormItem>
               )}
             />

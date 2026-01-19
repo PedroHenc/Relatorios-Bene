@@ -107,7 +107,7 @@ export default function NitroPage() {
       cliente: data.clientName,
       created_by: employee,
       categoria: "Relatorio Nitro",
-      kit_nitro: data.kit_nitro,
+      kit_nitro: data.kit_nitro ? "Kit Básico" : undefined,
       nitro: data.nitro,
     };
 
