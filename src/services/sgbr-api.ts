@@ -18,7 +18,7 @@ const webhookUrlNitro =
 export const sendNitroRelatorioToDiscord = async (relatorio: relatorios) => {
   const embed = {
     title: `⛽ Relatório de Nitro`,
-    color: 16727040, // Orange/Amber color
+    color: 16727040,
     fields: [
       { name: "👤 NOME", value: relatorio.cliente || "N/A", inline: true },
       {
