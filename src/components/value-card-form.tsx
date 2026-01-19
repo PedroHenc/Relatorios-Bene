@@ -176,20 +176,22 @@ export function ValueCardForm({
               control={form.control}
               name="xenom"
               render={({ field }) => (
-                <FormItem>
-                  <FormLabel>Xenom</FormLabel>
-                  <div className="space-y-2">
-                    <div className="border bg-muted/50 text-muted-foreground rounded-md px-3 py-1 text-sm w-20 text-center">
-                      {field.value ? "Sim" : "Não"}
-                    </div>
-                    <FormControl>
-                      <Switch
-                        checked={field.value}
-                        onCheckedChange={field.onChange}
-                      />
-                    </FormControl>
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                  <div className="space-y-0.5">
+                    <FormLabel>Xenom</FormLabel>
+                    <p className="text-sm text-muted-foreground">
+                      O veículo possui Xenom?{" "}
+                      <span className="font-semibold text-foreground">
+                        {field.value ? "Sim" : "Não"}
+                      </span>
+                    </p>
                   </div>
-                  <FormMessage />
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
                 </FormItem>
               )}
             />
