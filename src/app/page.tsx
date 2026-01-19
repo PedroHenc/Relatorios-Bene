@@ -113,6 +113,7 @@ export default function Home() {
       escape: data.escape,
       leilao: data.reportType === "leilao",
       xenom: data.xenom,
+      kit_nitro: data.kit_nitro ? "Kit Básico" : undefined,
     };
 
     postRelatorio.mutate(relatorioData, {

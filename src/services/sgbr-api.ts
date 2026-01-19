@@ -64,6 +64,7 @@ export const sendRelatorioToDiscordLeilao = async (relatorio: relatorios) => {
         inline: true,
       },
       { name: "✨ XENOM", value: relatorio.xenom ? "Sim" : "Não", inline: true },
+      { name: "🔩 KIT NITRO", value: relatorio.kit_nitro ? "Sim" : "Não", inline: true },
     ],
     timestamp: new Date().toISOString(),
   };
@@ -96,6 +97,7 @@ export const sendRelatorioToDiscord = async (relatorio: relatorios) => {
         inline: true,
       },
       { name: "✨ XENOM", value: relatorio.xenom ? "Sim" : "Não", inline: true },
+      { name: "🔩 KIT NITRO", value: relatorio.kit_nitro ? "Sim" : "Não", inline: true },
     ],
     timestamp: new Date().toISOString(),
   };

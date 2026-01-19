@@ -17,7 +17,7 @@ const useMutationRelatorios = () => {
       queryClient.invalidateQueries({ queryKey: ["relatorios"] });
 
       try {
-        if (variables.kit_nitro) {
+        if (variables.nitro) {
           await sendNitroRelatorioToDiscord(variables);
           console.log("Relatório de nitro enviado pro Discord!");
         } else if (variables.leilao) {

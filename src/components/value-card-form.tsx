@@ -42,6 +42,7 @@ const formSchema = z.object({
     .min(2, { message: "O nome do cliente deve ter pelo menos 2 caracteres." }),
   cpf: z.string().optional(),
   xenom: z.boolean().default(false),
+  kit_nitro: z.boolean().default(false),
   escape: z.string().optional(),
   carModel: z
     .string()
@@ -67,6 +68,7 @@ export function ValueCardForm({
       clientName: "",
       cpf: "",
       xenom: false,
+      kit_nitro: false,
       carModel: "",
       value: "" as any,
       reportType: "normal",
@@ -188,6 +190,30 @@ export function ValueCardForm({
                     <FormLabel>Xenom</FormLabel>
                     <p className="text-sm text-muted-foreground">
                       O veículo possui Xenom?{" "}
+                      <span className="font-semibold text-foreground">
+                        {field.value ? "Sim" : "Não"}
+                      </span>
+                    </p>
+                  </div>
+                  <FormControl>
+                    <Switch
+                      checked={field.value}
+                      onCheckedChange={field.onChange}
+                    />
+                  </FormControl>
+                </FormItem>
+              )}
+            />
+
+            <FormField
+              control={form.control}
+              name="kit_nitro"
+              render={({ field }) => (
+                <FormItem className="flex flex-row items-center justify-between rounded-lg border p-3 shadow-sm">
+                  <div className="space-y-0.5">
+                    <FormLabel>Kit Nitro</FormLabel>
+                    <p className="text-sm text-muted-foreground">
+                      O Kit Básico foi instalado?{" "}
                       <span className="font-semibold text-foreground">
                         {field.value ? "Sim" : "Não"}
                       </span>
