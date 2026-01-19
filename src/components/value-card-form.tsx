@@ -17,7 +17,7 @@ import {
   FormMessage,
 } from "@/components/ui/form";
 import { Input } from "@/components/ui/input";
-import { escapeOptions as escapeOptionsList, veiculosKK } from "@/lib/utils";
+import { cn, escapeOptions as escapeOptionsList, veiculosKK } from "@/lib/utils";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { DollarSign, FileText, Loader2, Send, User, X } from "lucide-react";
 import { useForm } from "react-hook-form";
@@ -74,12 +74,19 @@ export function ValueCardForm({
     },
   });
 
+  const reportType = form.watch("reportType");
+
   const handleFormSubmit = (data: FormData) => {
     onSubmit(data, () => form.reset());
   };
 
   return (
-    <Card className="w-full max-w-lg shadow-lg">
+    <Card
+      className={cn(
+        "w-full max-w-lg shadow-lg transition-all",
+        reportType === "leilao" && "border-primary border-2 animate-pulse-border",
+      )}
+    >
       <CardHeader>
         <CardTitle className="font-headline text-2xl">Relatorio</CardTitle>
         <CardDescription>
