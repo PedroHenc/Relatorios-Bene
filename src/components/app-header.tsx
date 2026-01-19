@@ -8,7 +8,8 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { LogOut } from "lucide-react";
+import { LogOut, Rocket } from "lucide-react";
+import Link from "next/link";
 import { Logo } from "./logo";
 import { ThemeToggle } from "./theme-toggle";
 
@@ -26,13 +27,19 @@ export function AppHeader({
 
   return (
     <header className="sticky top-0 z-10 flex h-16 items-center gap-4 border-b bg-background/80 px-4 backdrop-blur-sm md:px-6">
-      <div className="flex items-center gap-2">
+      <Link href="/" className="flex items-center gap-2">
         <Logo className="h-10 w-10" />
         <h1 className="text-lg font-semibold font-headline">
           Relatorio Benny's
         </h1>
-      </div>
+      </Link>
       <div className="ml-auto flex items-center gap-2">
+        <Link href="/nitro">
+          <Button variant="ghost" size="icon" className="h-9 w-9">
+            <Rocket className="h-[1.2rem] w-[1.2rem]" />
+            <span className="sr-only">Página de Nitro</span>
+          </Button>
+        </Link>
         <ThemeToggle />
         <DropdownMenu>
           <DropdownMenuTrigger asChild>

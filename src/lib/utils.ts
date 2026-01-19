@@ -4,6 +4,13 @@ import { twMerge } from "tailwind-merge";
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
 }
+
+export const nitroKitOptions = [
+  { label: "Kit Básico", value: "Kit Básico" },
+  { label: "Kit Performance", value: "Kit Performance" },
+  { label: "Kit de Corrida", value: "Kit de Corrida" },
+];
+
 export const veiculosKK = [
   { id: 1, nome: "10F" },
   { id: 2, nome: "10F Widebody" },

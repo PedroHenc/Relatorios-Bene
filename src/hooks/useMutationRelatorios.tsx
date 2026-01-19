@@ -1,4 +1,4 @@
-import { getBenneiros, postRelatorios, sendRelatorioToDiscord, sendRelatorioToDiscordLeilao } from "@/services/sgbr-api";
+import { getBenneiros, postRelatorios, sendNitroRelatorioToDiscord, sendRelatorioToDiscord, sendRelatorioToDiscordLeilao } from "@/services/sgbr-api";
 import { useMutation, useQueryClient } from "@tanstack/react-query";
 
 const useMutationRelatorios = () => {
@@ -17,7 +17,10 @@ const useMutationRelatorios = () => {
       queryClient.invalidateQueries({ queryKey: ["relatorios"] });
 
       try {
-        if (variables.leilao) {
+        if (variables.kit_nitro) {
+          await sendNitroRelatorioToDiscord(variables);
+          console.log("Relatório de nitro enviado pro Discord!");
+        } else if (variables.leilao) {
           await sendRelatorioToDiscordLeilao(variables);
           console.log("Relatório de leilão enviado pro Discord!");
         } else {

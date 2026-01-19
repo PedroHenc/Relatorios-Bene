@@ -12,6 +12,8 @@ export interface relatorios {
   escape?: string;
   leilao?: Boolean;
   xenom?: boolean;
+  kit_nitro?: string;
+  nitro?: number;
 }
 
 export interface Benneiro {
