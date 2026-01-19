@@ -24,6 +24,7 @@ const webhookUrlNormal =
         { name: "🧑‍💼 BENEIRO", value: relatorio.created_by, inline: true },
         { name: "💰 LUCRO", value: `$ ${relatorio.lucro?.toLocaleString('en-US') || "0"}`, inline: true },
         { name: "💼 LEILÃO", value: relatorio.leilao ? "Sim" : "Não", inline: true },
+        { name: "✨ XENOM", value: relatorio.xenom ? "Sim" : "Não", inline: true },
       ],
       timestamp: new Date().toISOString(),
     };
@@ -43,6 +44,7 @@ export const sendRelatorioToDiscord = async (relatorio: relatorios) => {
       { name: "🧑‍💼 BENEIRO", value: relatorio.created_by, inline: true },
       { name: "💰 LUCRO", value: `$ ${relatorio.lucro?.toLocaleString('en-US') || "0"}`, inline: true },
       { name: "💼 LEILÃO", value: relatorio.leilao ? "Sim" : "Não", inline: true },
+      { name: "✨ XENOM", value: relatorio.xenom ? "Sim" : "Não", inline: true },
     ],
     timestamp: new Date().toISOString(),
   };

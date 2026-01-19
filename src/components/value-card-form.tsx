@@ -41,6 +41,7 @@ const formSchema = z.object({
     .string()
     .min(2, { message: "O nome do cliente deve ter pelo menos 2 caracteres." }),
   cpf: z.string().optional(),
+  xenom: z.boolean().default(false),
   escape: z.string().optional(),
   carModel: z
     .string()
@@ -65,9 +66,11 @@ export function ValueCardForm({
     defaultValues: {
       clientName: "",
       cpf: "",
-      carModel: undefined,
+      xenom: false,
+      carModel: "",
       value: "" as any,
       reportType: "normal",
+      escape: "",
     },
   });
 
@@ -168,6 +171,29 @@ export function ValueCardForm({
                 </FormItem>
               )}
             />
+
+            <FormField
+              control={form.control}
+              name="xenom"
+              render={({ field }) => (
+                <FormItem>
+                  <FormLabel>Xenom</FormLabel>
+                  <div className="space-y-2">
+                    <div className="border bg-muted/50 text-muted-foreground rounded-md px-3 py-1 text-sm w-20 text-center">
+                      {field.value ? "Sim" : "Não"}
+                    </div>
+                    <FormControl>
+                      <Switch
+                        checked={field.value}
+                        onCheckedChange={field.onChange}
+                      />
+                    </FormControl>
+                  </div>
+                  <FormMessage />
+                </FormItem>
+              )}
+            />
+
             <FormField
               control={form.control}
               name="escape"

@@ -112,6 +112,7 @@ export default function Home() {
       veiculo: data.carModel,
       escape: data.escape,
       leilao: data.reportType === "leilao",
+      xenom: data.xenom,
     };
 
     postRelatorio.mutate(relatorioData, {
