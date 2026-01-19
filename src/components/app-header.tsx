@@ -33,17 +33,17 @@ export function AppHeader({
           Relatorio Benny's
         </h1>
       </Link>
-      <div className="ml-auto flex items-center gap-2">
+      <div className="ml-auto flex items-center gap-4">
         <Link href="/">
-          <Button variant="ghost" size="icon" className="h-9 w-9">
-            <FileText className="h-[1.2rem] w-[1.2rem]" />
-            <span className="sr-only">Página de Relatório</span>
+          <Button variant="ghost" size="sm">
+            <FileText />
+            <span>Relatório</span>
           </Button>
         </Link>
         <Link href="/nitro">
-          <Button variant="ghost" size="icon" className="h-9 w-9">
-            <Rocket className="h-[1.2rem] w-[1.2rem]" />
-            <span className="sr-only">Página de Nitro</span>
+          <Button variant="ghost" size="sm">
+            <Rocket />
+            <span>Nitro</span>
           </Button>
         </Link>
         <ThemeToggle />
