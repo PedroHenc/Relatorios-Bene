@@ -15,6 +15,7 @@ export interface relatorios {
   kit_nitro?: string;
   nitro?: number;
   motivo?: string;
+  relatorio_id?: number;
 }
 
 export interface Benneiro {

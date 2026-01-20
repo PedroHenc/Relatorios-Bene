@@ -140,6 +140,10 @@ export function getBenneiros() {
   return apiUrl.get("/benneiros");
 }
 
+export function getRelatorios() {
+  return apiUrl.get("/relatorios");
+}
+
 export function postRelatorios(Relatorios: relatorios) {
   return apiUrl.post("/relatorios", Relatorios);
 }

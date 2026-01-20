@@ -9,8 +9,8 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import useMutationRelatorios from "@/hooks/useMutationRelatorios";
-import { getBenneiros } from "@/services/sgbr-api";
-import { Benneiro } from "@/services/types";
+import { getBenneiros, getRelatorios } from "@/services/sgbr-api";
+import { Benneiro, relatorios } from "@/services/types";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
 
@@ -28,6 +28,15 @@ export default function RessarcimentoPage() {
   } = useQuery<{ data: Benneiro[] }>({
     queryKey: ["benneiros"],
     queryFn: getBenneiros,
+  });
+
+  const {
+    data: reportsData,
+    isLoading: reportsLoading,
+    isError: reportsError,
+  } = useQuery<{ data: relatorios[] }>({
+    queryKey: ["relatorios"],
+    queryFn: getRelatorios,
   });
 
   const groupedEmployees = benneiroData?.data.reduce(
@@ -94,6 +103,7 @@ export default function RessarcimentoPage() {
   const handleFormSubmit = (
     data: RessarcimentoFormData,
     resetForm: () => void,
+    selectedReport: relatorios,
   ) => {
     const selectedEmployeeData = benneiroData?.data.find(
       (b) => b.nome === employee,
@@ -108,13 +118,23 @@ export default function RessarcimentoPage() {
       return;
     }
 
+    if (!selectedReport) {
+      toast({
+        title: "Erro",
+        description: "Nenhum relatório vinculado.",
+        variant: "destructive",
+      });
+      return;
+    }
+
     const relatorioData = {
       beneiro_id: selectedEmployeeData.id,
-      cliente: data.clientName,
+      cliente: selectedReport.cliente,
       created_by: employee,
       categoria: "Ressarcimento",
       lucro: data.value,
       motivo: data.reason,
+      relatorio_id: selectedReport.id,
     };
 
     postRelatorio.mutate(relatorioData, {
@@ -168,6 +188,8 @@ export default function RessarcimentoPage() {
         <RessarcimentoForm
           onSubmit={handleFormSubmit}
           isSubmitting={postRelatorio.isPending}
+          reports={reportsData?.data ?? []}
+          isLoadingReports={reportsLoading}
         />
       </main>
     </div>
