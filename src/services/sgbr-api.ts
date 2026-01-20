@@ -1,4 +1,4 @@
-2212import axios from "axios";
+import axios from "axios";
 import { relatorios } from "./types";
 
 const apiUrl = axios.create({
