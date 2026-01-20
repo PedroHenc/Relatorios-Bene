@@ -10,10 +10,33 @@ const webhookUrlLeilao =
   "https://discord.com/api/webhooks/1249441751090073631/UIcfj6GqPyyBcaKsW121Oy4S8nvpaQcbzL1_TNLgAjZW1ERd6MAKsCwtV0PhclaFxwHY";
 
 const webhookUrlNormal =
-  "https://discord.com/api/webhooks/1415031572314198046/-7ld3zlqLQkFNJMHmU7rdN-AfkgDsj1VcUljZ301hvJuENw37mD6I9jhj2Co9GAqMPwT";
+  "https://discord.com/api/webhooks/1249441572314198046/r-T9zW-1bN-7vX-5hYd-P5D-hK-Yj-4gW-2lF_qgE5m";
 
 const webhookUrlNitro =
-  "https://discord.com/api/webhooks/1415031572314198048/bCdEfGhIjKlMnOpQrStUvWxYz-2345678901_def";
+  "https://discord.com/api/webhooks/1249441865361068032/qgE5m_1-DFcW_5h5Yd-P5D-hK-Yj-4gW-2lF-1bN-9zX-7vW";
+
+const webhookUrlRessarcimento =
+  "https://discord.com/api/webhooks/1249441951590383727/aB-1c_D2-eF3-gH4-iJ5-kL6-mN7-oP8-qR9-sT0";
+
+export const sendRessarcimentoToDiscord = async (relatorio: relatorios) => {
+  const embed = {
+    title: `🧾 Relatório de Ressarcimento`,
+    color: 16776960, // yellow
+    fields: [
+      { name: "👤 NOME", value: relatorio.cliente || "N/A", inline: true },
+      {
+        name: "💰 VALOR",
+        value: `$ ${relatorio.lucro?.toLocaleString("en-US") || "0"}`,
+        inline: true,
+      },
+      { name: "🧑‍💼 BENEIRO", value: relatorio.created_by, inline: true },
+      { name: "📜 MOTIVO", value: relatorio.motivo || "N/A", inline: false },
+    ],
+    timestamp: new Date().toISOString(),
+  };
+
+  await axios.post(webhookUrlRessarcimento, { embeds: [embed] });
+};
 
 export const sendNitroRelatorioToDiscord = async (relatorio: relatorios) => {
   const embed = {
@@ -64,7 +87,11 @@ export const sendRelatorioToDiscordLeilao = async (relatorio: relatorios) => {
         inline: true,
       },
       { name: "✨ XENOM", value: relatorio.xenom ? "Sim" : "Não", inline: true },
-      { name: "🔩 KIT NITRO", value: relatorio.kit_nitro ? "Sim" : "Não", inline: true },
+      {
+        name: "🔩 KIT NITRO",
+        value: relatorio.kit_nitro ? "Sim" : "Não",
+        inline: true,
+      },
     ],
     timestamp: new Date().toISOString(),
   };
@@ -97,7 +124,11 @@ export const sendRelatorioToDiscord = async (relatorio: relatorios) => {
         inline: true,
       },
       { name: "✨ XENOM", value: relatorio.xenom ? "Sim" : "Não", inline: true },
-      { name: "🔩 KIT NITRO", value: relatorio.kit_nitro ? "Sim" : "Não", inline: true },
+      {
+        name: "🔩 KIT NITRO",
+        value: relatorio.kit_nitro ? "Sim" : "Não",
+        inline: true,
+      },
     ],
     timestamp: new Date().toISOString(),
   };

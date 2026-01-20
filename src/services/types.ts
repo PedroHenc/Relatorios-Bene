@@ -14,6 +14,7 @@ export interface relatorios {
   xenom?: boolean;
   kit_nitro?: string;
   nitro?: number;
+  motivo?: string;
 }
 
 export interface Benneiro {

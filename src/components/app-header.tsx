@@ -8,7 +8,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { FileText, LogOut, Rocket } from "lucide-react";
+import { FileText, LogOut, Receipt, Rocket } from "lucide-react";
 import Link from "next/link";
 import { Logo } from "./logo";
 import { ThemeToggle } from "./theme-toggle";
@@ -44,6 +44,12 @@ export function AppHeader({
           <Button variant="ghost" size="sm">
             <Rocket />
             <span>Nitro</span>
+          </Button>
+        </Link>
+        <Link href="/ressarcimento">
+          <Button variant="ghost" size="sm">
+            <Receipt />
+            <span>Ressarcimento</span>
           </Button>
         </Link>
         <ThemeToggle />
