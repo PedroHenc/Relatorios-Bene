@@ -10,9 +10,6 @@ const discordApiUrl = axios.create({
   baseURL: "https://discord.com/api/v10/channels/",
 });
 
-const botToken =
-  "MTQ2MzMxMTUwODQ3MjcyNTY2Nw.GwLlb9.phkR7ugkbZiyCKFEJDjb15eZP_pMfgQiKk-Ch4";
-
 const webhookUrlLeilao =
   "https://discord.com/api/webhooks/1249441751090073631/UIcfj6GqPyyBcaKsW121Oy4S8nvpaQcbzL1_TNLgAjZW1ERd6MAKsCwtV0PhclaFxwHY";
 
@@ -154,7 +151,7 @@ export const sendRelatorioToDiscord = async (relatorio: relatorios) => {
 export function getRelatriosChat() {
   return discordApiUrl.get("1410404938588094506/messages?limit=20", {
     headers: {
-      Authorization: `Bot ${botToken}`,
+      Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
     },
   });
 }
