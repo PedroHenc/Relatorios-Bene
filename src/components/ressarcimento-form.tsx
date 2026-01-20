@@ -104,14 +104,21 @@ export function RessarcimentoForm({
     }
   };
 
-  const filteredReports = reports.filter(
-    (report) =>
-      (report.cliente?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        report.veiculo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
-        report.id?.toString().includes(searchTerm)) &&
-      report.categoria !== "Ressarcimento" &&
-      report.categoria !== "Relatorio Nitro",
-  );
+  const filteredReports = reports
+    .filter(
+      (report) =>
+        (report.cliente?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          report.veiculo?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+          report.id?.toString().includes(searchTerm)) &&
+        report.categoria !== "Ressarcimento" &&
+        report.categoria !== "Relatorio Nitro",
+    )
+    .sort((a, b) =>
+      a.created_at && b.created_at
+        ? new Date(b.created_at).getTime() - new Date(a.created_at).getTime()
+        : 0,
+    )
+    .slice(0, 10);
 
   return (
     <Card className="w-full max-w-lg shadow-lg">
