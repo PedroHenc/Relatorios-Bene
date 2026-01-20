@@ -10,8 +10,6 @@ const discordApiUrl = axios.create({
   baseURL: "https://discord.com/api/v10/channels/",
 });
 
-const webhookUrlLeilao =
-  "https://discord.com/api/webhooks/1249441751090073631/UIcfj6GqPyyBcaKsW121Oy4S8nvpaQcbzL1_TNLgAjZW1ERd6MAKsCwtV0PhclaFxwHY";
 
 const webhookUrlNormal =
   "https://discord.com/api/webhooks/1249441572314198046/r-T9zW-1bN-7vX-5hYd-P5D-hK-Yj-4gW-2lF_qgE5m";
@@ -104,7 +102,7 @@ export const sendRelatorioToDiscordLeilao = async (relatorio: relatorios) => {
     timestamp: new Date().toISOString(),
   };
 
-  await axios.post(webhookUrlLeilao, { embeds: [embed] });
+  await axios.post(process.env.WEB_HOOK_LEILAO ?? "", { embeds: [embed] });
 };
 
 export const sendRelatorioToDiscord = async (relatorio: relatorios) => {
