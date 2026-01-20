@@ -6,6 +6,13 @@ const apiUrl = axios.create({
   // baseURL: "http://localhost:8080",
 });
 
+const discordApiUrl = axios.create({
+  baseURL: "https://discord.com/api/v10/channels/",
+});
+
+const botToken =
+  "MTQ2MzMxMTUwODQ3MjcyNTY2Nw.GwLlb9.phkR7ugkbZiyCKFEJDjb15eZP_pMfgQiKk-Ch4";
+
 const webhookUrlLeilao =
   "https://discord.com/api/webhooks/1249441751090073631/UIcfj6GqPyyBcaKsW121Oy4S8nvpaQcbzL1_TNLgAjZW1ERd6MAKsCwtV0PhclaFxwHY";
 
@@ -86,7 +93,11 @@ export const sendRelatorioToDiscordLeilao = async (relatorio: relatorios) => {
         value: relatorio.leilao ? "Sim" : "Não",
         inline: true,
       },
-      { name: "✨ XENOM", value: relatorio.xenom ? "Sim" : "Não", inline: true },
+      {
+        name: "✨ XENOM",
+        value: relatorio.xenom ? "Sim" : "Não",
+        inline: true,
+      },
       {
         name: "🔩 KIT NITRO",
         value: relatorio.kit_nitro ? "Sim" : "Não",
@@ -123,7 +134,11 @@ export const sendRelatorioToDiscord = async (relatorio: relatorios) => {
         value: relatorio.leilao ? "Sim" : "Não",
         inline: true,
       },
-      { name: "✨ XENOM", value: relatorio.xenom ? "Sim" : "Não", inline: true },
+      {
+        name: "✨ XENOM",
+        value: relatorio.xenom ? "Sim" : "Não",
+        inline: true,
+      },
       {
         name: "🔩 KIT NITRO",
         value: relatorio.kit_nitro ? "Sim" : "Não",
@@ -135,6 +150,14 @@ export const sendRelatorioToDiscord = async (relatorio: relatorios) => {
 
   await axios.post(webhookUrlNormal, { embeds: [embed] });
 };
+
+export function getRelatriosChat() {
+  return discordApiUrl.get("1410404938588094506/messages?limit=20", {
+    headers: {
+      Authorization: `Bot ${botToken}`,
+    },
+  });
+}
 
 export function getBenneiros() {
   return apiUrl.get("/benneiros");

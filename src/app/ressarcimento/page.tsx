@@ -9,7 +9,11 @@ import {
 import { Skeleton } from "@/components/ui/skeleton";
 import { useToast } from "@/hooks/use-toast";
 import useMutationRelatorios from "@/hooks/useMutationRelatorios";
-import { getBenneiros, getRelatorios } from "@/services/sgbr-api";
+import {
+  getBenneiros,
+  getRelatorios,
+  getRelatriosChat,
+} from "@/services/sgbr-api";
 import { Benneiro, relatorios } from "@/services/types";
 import { useQuery } from "@tanstack/react-query";
 import { useEffect, useState } from "react";
@@ -20,6 +24,16 @@ export default function RessarcimentoPage() {
 
   const { toast } = useToast();
   const { postRelatorio } = useMutationRelatorios();
+  const {
+    data: relatorioData,
+    isLoading: relatorioLoading,
+    isError: relatorioError,
+  } = useQuery({
+    queryKey: ["relatoriosChat"],
+    queryFn: getRelatriosChat,
+  });
+
+  console.log(getRelatriosChat);
 
   const {
     data: benneiroData,
@@ -53,21 +67,21 @@ export default function RessarcimentoPage() {
 
   const sortedGroupedEmployees = groupedEmployees
     ? Object.entries(groupedEmployees).sort(([groupA], [groupB]) => {
-      const order = ["Presidente", "Gerência"];
-      const indexA = order.indexOf(groupA);
-      const indexB = order.indexOf(groupB);
+        const order = ["Presidente", "Gerência"];
+        const indexA = order.indexOf(groupA);
+        const indexB = order.indexOf(groupB);
 
-      if (indexA !== -1 && indexB !== -1) {
-        return indexA - indexB;
-      }
-      if (indexA !== -1) {
-        return -1;
-      }
-      if (indexB !== -1) {
-        return 1;
-      }
-      return groupA.localeCompare(groupB);
-    })
+        if (indexA !== -1 && indexB !== -1) {
+          return indexA - indexB;
+        }
+        if (indexA !== -1) {
+          return -1;
+        }
+        if (indexB !== -1) {
+          return 1;
+        }
+        return groupA.localeCompare(groupB);
+      })
     : [];
 
   useEffect(() => {
