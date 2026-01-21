@@ -12,7 +12,7 @@ import useMutationRelatorios from "@/hooks/useMutationRelatorios";
 import {
   getBenneiros,
   getRelatorios,
-  getRelatriosChat,
+  getRelatoriosChat,
 } from "@/services/sgbr-api";
 import { Benneiro, relatorios } from "@/services/types";
 import { useQuery } from "@tanstack/react-query";
@@ -30,10 +30,10 @@ export default function RessarcimentoPage() {
     isError: relatorioError,
   } = useQuery({
     queryKey: ["relatoriosChat"],
-    queryFn: getRelatriosChat,
+    queryFn: getRelatoriosChat,
   });
 
-  console.log(getRelatriosChat);
+  console.log(relatorioData?.data);
 
   const {
     data: benneiroData,
