@@ -6,11 +6,6 @@ const apiUrl = axios.create({
   // baseURL: "http://localhost:8080",
 });
 
-const discordApiUrl = axios.create({
-  baseURL: "https://discord.com/api/v10/channels/",
-});
-
-
 const webhookUrlNormal =
   "https://discord.com/api/webhooks/1249441572314198046/r-T9zW-1bN-7vX-5hYd-P5D-hK-Yj-4gW-2lF_qgE5m";
 
@@ -146,13 +141,17 @@ export const sendRelatorioToDiscord = async (relatorio: relatorios) => {
   await axios.post(webhookUrlNormal, { embeds: [embed] });
 };
 
-export function getRelatriosChat() {
-  return discordApiUrl.get("1410404938588094506/messages?limit=20", {
-    headers: {
-      Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
+export async function getRelatoriosChat() {
+  return axios.get(
+    "https://discord.com/api/v10/channels/1410404938588094506/messages?limit=20",
+    {
+      headers: {
+        Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
+      },
     },
-  });
+  );
 }
+
 
 export function getBenneiros() {
   return apiUrl.get("/benneiros");

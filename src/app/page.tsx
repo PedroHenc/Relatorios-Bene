@@ -108,7 +108,7 @@ export default function Home() {
       cpf: data.cpf ? Number(data.cpf.replace(/\D/g, "")) : undefined,
       lucro: data.value,
       categoria: `Relatorio ${selectedEmployeeData.cargo}`,
-      created_by: employee,
+      created_by: employee || "Desconhecido",
       veiculo: data.carModel,
       escape: data.escape,
       leilao: data.reportType === "leilao",
