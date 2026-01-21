@@ -47,7 +47,7 @@ export function AppHeader({
           </Button>
         </Link>
         <Link href="/ressarcimento">
-          <Button variant="ghost" size="sm">
+          <Button variant="ghost" size="sm" disabled>
             <Receipt />
             <span>Ressarcimento</span>
           </Button>
