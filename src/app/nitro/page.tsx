@@ -59,13 +59,16 @@ export default function NitroPage() {
     : [];
 
   useEffect(() => {
-    try {
-      const storedEmployee = localStorage.getItem("selectedEmployee");
-      if (storedEmployee) {
-        setEmployee(storedEmployee);
+    // This code should only run on the client side
+    if (typeof window !== "undefined") {
+      try {
+        const storedEmployee = localStorage.getItem("selectedEmployee");
+        if (storedEmployee) {
+          setEmployee(storedEmployee);
+        }
+      } catch (error) {
+        console.error("Não foi possível acessar o armazenamento local", error);
       }
-    } catch (error) {
-      console.error("Não foi possível acessar o armazenamento local", error);
     }
     setAppLoading(false);
   }, []);
