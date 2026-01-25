@@ -141,17 +141,20 @@ export const sendRelatorioToDiscord = async (relatorio: relatorios) => {
   await axios.post(webhookUrlNormal, { embeds: [embed] });
 };
 
-export async function getRelatoriosChat() {
-  return axios.get(
-    "https://discord.com/api/v10/channels/1410404938588094506/messages?limit=20",
-    {
-      headers: {
-        Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
-      },
-    },
-  );
-}
+// export async function getRelatoriosChat() {
+//   return axios.get(
+//     "https://discord.com/api/v10/channels/1410404938588094506/messages?limit=20",
+//     {
+//       headers: {
+//         Authorization: `Bot ${process.env.DISCORD_BOT_TOKEN}`,
+//       },
+//     },
+//   );
+// }
 
+export function getRelatoriosChat() {
+  return axios.get("/api/messages");
+}
 
 export function getBenneiros() {
   return apiUrl.get("/benneiros");

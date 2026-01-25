@@ -24,16 +24,21 @@ export default function RessarcimentoPage() {
 
   const { toast } = useToast();
   const { postRelatorio } = useMutationRelatorios();
+  
   const {
     data: relatorioData,
     isLoading: relatorioLoading,
     isError: relatorioError,
-  } = useQuery({
+  } = useQuery<any[]>({
     queryKey: ["relatoriosChat"],
-    queryFn: getRelatoriosChat,
+    queryFn: async () => {
+      const res = await getRelatoriosChat();
+      return res.data;
+    },
   });
+  
 
-  console.log(relatorioData?.data);
+  console.log(relatorioData);
 
   const {
     data: benneiroData,
